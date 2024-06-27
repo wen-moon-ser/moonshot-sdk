@@ -5,9 +5,9 @@ import { InitTokenOptions, Token } from '../token';
 import { LaunchpadApiAdapter } from '../../../infra';
 
 export class Moonshot {
-  private connection: Connection;
-
   private environment: Environment;
+
+  connection: Connection;
 
   apiAdapter: LaunchpadApiAdapter;
 
