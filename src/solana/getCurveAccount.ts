@@ -1,6 +1,6 @@
 import { Program } from '@coral-xyz/anchor';
-import { TokenLaunchpadIdl } from './program';
 import { PublicKey } from '@solana/web3.js';
+import { TokenLaunchpadIdl } from './program';
 
 export async function getCurveAccount(
   program: Program<TokenLaunchpadIdl>,
