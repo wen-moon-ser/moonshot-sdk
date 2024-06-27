@@ -1,0 +1,43 @@
+import { InitTokenOptions } from './InitTokenOptions';
+import { Moonshot } from '../moonshot';
+import { PrepareTxOptions } from './PrepareTxOptions';
+import { GetCollateralPriceOptions } from './GetCollateralPriceOptions';
+import { GetTokenAmountOptions } from './GetTokenAmountOptions';
+import { GetCollateralAmountOptions } from './GetCollateralAmountOptions';
+
+export class Token {
+  private moonshot: Moonshot;
+
+  private mintAddress: string;
+
+  constructor(options: InitTokenOptions) {
+    this.moonshot = options.moonshot;
+    this.mintAddress = options.mintAddress;
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  getCollateralPrice(options?: GetCollateralPriceOptions): Promise<string> {
+    throw Error('unimplemented');
+  }
+
+  getCurvePosition(): Promise<string> {
+    throw Error('unimplemented');
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  getTokenAmountByCollateral(options: GetTokenAmountOptions): Promise<string> {
+    throw new Error('unimplemented');
+  }
+
+  getCollateralAmountByTokens(
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    options: GetCollateralAmountOptions,
+  ): Promise<string> {
+    throw new Error('unimplemented');
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  prepareTx(options: PrepareTxOptions): Promise<string> {
+    throw new Error('unimplemented');
+  }
+}

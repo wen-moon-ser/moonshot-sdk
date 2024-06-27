@@ -1,4 +1,4 @@
-import { BaseApiClient } from '../http';
+import { ApiClient } from '../http';
 import {
   BuyTxPrepareDto,
   BuyTxPrepareResponse,
@@ -7,10 +7,12 @@ import {
 } from '@heliofi/launchpad-common';
 
 export class LaunchpadApiAdapter {
-  constructor(
-    private apiClient: BaseApiClient,
-    private token: string,
-  ) {}
+  private apiClient: ApiClient;
+
+  constructor(private token: string) {
+    const apiBasePath = 'example.com'; // TODO change this once released
+    this.apiClient = new ApiClient({ apiBasePath });
+  }
 
   async prepareBuy(
     mintAddress: string,

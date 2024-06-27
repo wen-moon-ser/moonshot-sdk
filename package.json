@@ -31,6 +31,7 @@
   },
   "dependencies": {
     "@heliofi/launchpad-common": "^0.0.23",
+    "@solana/web3.js": "^1.93.3",
     "axios": "^1.7.2"
   },
   "eslintConfig": {
