@@ -36,8 +36,14 @@ export class Token {
     throw new Error('unimplemented');
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  prepareTx(options: PrepareTxOptions): Promise<string> {
-    throw new Error('unimplemented');
+  prepareTx(
+    options: PrepareTxOptions,
+  ): Promise<{ transaction: string; token: string }> {
+    return this.moonshot.apiAdapter.prepareBuy(this.mintAddress, {
+      creatorPK: options.creatorPK,
+      amount: options.tokenAmount,
+      slippageBps: options.slippageBps,
+      collateralAmount: options.collateralAmount,
+    });
   }
 }

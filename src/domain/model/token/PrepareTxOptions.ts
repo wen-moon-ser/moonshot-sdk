@@ -1,7 +1,7 @@
 export interface PrepareTxOptions {
   tokenAmount: string;
   collateralAmount: string;
-  slippage: number;
+  slippageBps: number;
   creatorPK: string;
   tradeDirection: 'BUY' | 'SELL';
 }
