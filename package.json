@@ -13,6 +13,7 @@
   "author": "hi@hel.io",
   "license": "MIT",
   "devDependencies": {
+    "@types/bn.js": "^5.1.5",
     "@types/jest": "^29.5.12",
     "@types/node": "^20.14.9",
     "@typescript-eslint/eslint-plugin": "^6.18.0",
@@ -30,12 +31,11 @@
     "typescript": "^5.5.2"
   },
   "dependencies": {
-    "@heliofi/launchpad-common": "^0.0.23",
     "@coral-xyz/anchor": "^0.29.0",
-    "@solana/web3.js": "^1.68.0",
+    "@heliofi/launchpad-common": "^0.0.23",
     "@solana/spl-token": "0.3.9",
-    "axios": "^1.7.2",
-    "bignumber.js": "^9.1.2"
+    "@solana/web3.js": "^1.68.0",
+    "axios": "^1.7.2"
   },
   "eslintConfig": {
     "root": true,
