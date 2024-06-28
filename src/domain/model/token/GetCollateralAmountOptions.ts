@@ -1,4 +1,4 @@
-import { TradeDirection } from './TradeDirection';
+import { TradeDirection } from '../../';
 
 export interface GetCollateralAmountOptions {
   tokenAmount: string;

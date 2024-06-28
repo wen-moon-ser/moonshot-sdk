@@ -1,7 +1,7 @@
 import { PublicKey } from '@solana/web3.js';
 import * as splToken from '@solana/spl-token';
 import { getAssociatedTokenAddress } from '@solana/spl-token';
-import { AnchorProviderV1 } from './anchor/AnchorProviderV1';
+import { AnchorProviderV1 } from '../provider/AnchorProviderV1';
 
 export async function getCurvePosition(
   provider: AnchorProviderV1,
