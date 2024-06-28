@@ -1,6 +1,6 @@
 {
-  "name": "@heliofi/moonshot-sdk",
-  "version": "0.0.1",
+  "name": "moonshot-sdk",
+  "version": "0.0.1-alpha.1",
   "main": "index.js",
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
@@ -10,7 +10,7 @@
     "format": "prettier --write 'src/**/*.{js,ts,json,md}'"
   },
   "repository": "git@github.com:heliofi/moonshot-sdk.git",
-  "author": "hi@hel.io",
+  "author": "",
   "license": "MIT",
   "devDependencies": {
     "@types/bn.js": "^5.1.5",
