@@ -1,7 +1,0 @@
-export enum TxStatus {
-  INITIATED = 'INITIATED',
-  PENDING = 'PENDING',
-  SUCCESS = 'SUCCESS',
-  FAILED = 'FAILED',
-  CANCELED = 'CANCELED',
-}

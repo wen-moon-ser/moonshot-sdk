@@ -1,4 +1,4 @@
-import { TradeDirection } from '../../';
+import { TradeDirection } from '@heliofi/launchpad-common';
 
 export interface GetTokenAmountOptions {
   collateralAmount: string;

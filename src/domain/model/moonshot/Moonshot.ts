@@ -1,18 +1,19 @@
 import { InitMoonshotOptions } from './InitMoonshotOptions';
-import { Connection } from '@solana/web3.js';
 import { Environment } from '../environment';
 import { InitTokenOptions, Token } from '../token';
 import { LaunchpadApiAdapter } from '../../../infra';
+import { AnchorProviderV1, BaseAnchorProvider } from '../../../solana/provider';
+import { TokenLaunchpadIdl } from '../../../solana';
 
 export class Moonshot {
   private environment: Environment;
 
-  connection: Connection;
+  provider: BaseAnchorProvider<TokenLaunchpadIdl>;
 
   apiAdapter: LaunchpadApiAdapter;
 
   constructor(options: InitMoonshotOptions) {
-    this.connection = new Connection(options.rpcUrl);
+    this.provider = new AnchorProviderV1(options.rpcUrl);
     this.environment = options.environment;
     this.apiAdapter = new LaunchpadApiAdapter(options.authToken);
   }

@@ -17,7 +17,7 @@ export class Token {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   getCollateralPrice(options?: GetCollateralPriceOptions): Promise<string> {
-    throw Error('unimplemented');
+    throw new Error('unimplemented');
   }
 
   getCurvePosition(): Promise<string> {
