@@ -32,7 +32,8 @@
   "dependencies": {
     "@heliofi/launchpad-common": "^0.0.23",
     "@solana/web3.js": "^1.93.3",
-    "axios": "^1.7.2"
+    "axios": "^1.7.2",
+    "bignumber.js": "^9.1.2"
   },
   "eslintConfig": {
     "root": true,
