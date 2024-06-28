@@ -1,7 +1,7 @@
 import { TradeDirection } from '@heliofi/launchpad-common';
 
 export interface GetCollateralAmountOptions {
-  tokensAmount: string;
+  tokensAmount: bigint;
   tradeDirection: TradeDirection;
-  curvePosition?: string;
+  curvePosition?: bigint;
 }

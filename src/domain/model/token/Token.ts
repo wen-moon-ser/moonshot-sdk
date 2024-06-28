@@ -10,6 +10,8 @@ import {
   TradeDirection,
 } from '@heliofi/launchpad-common';
 import { getCurveAccount } from '../../../solana';
+import { currencyDecimals } from '../currency/CurrencyDecimals';
+import { calculateCurvePosition } from '../../../solana/utils/calculateCurvePosition';
 
 export class Token {
   private moonshot: Moonshot;
@@ -31,33 +33,34 @@ export class Token {
       this.moonshot.provider.program,
       this.mintAddress,
     );
-    if (curveState == null) {
-      throw new Error('Curve account data not found');
-    }
-
-    const tokensAmount = BigInt(options.tokensAmount);
-
-    const curvePosition =
-      curveState.curvePosition ?? (curveState.curvePosition as bigint);
 
     const {
-      collateralDecimalsNr,
-      tokenDecimalsNr,
-      marketCapDecimalsNr,
+      curveAmount,
+      collateralCurrency,
+      marketcapCurrency,
       totalSupply,
-      marketCapThreshold,
+      marketcapThreshold,
       coefB,
+      decimals,
     } = curveState;
 
-    return this.curve.getCollateralPrice({
-      collateralDecimalsNr,
-      tokenDecimalsNr,
-      marketCapDecimalsNr,
+    const { tokensAmount } = options;
+
+    const curvePosition = calculateCurvePosition(
       totalSupply,
-      marketCapThreshold,
+      curveAmount,
+      options.curvePosition,
+    );
+
+    return this.curve.getCollateralPrice({
+      collateralDecimalsNr: currencyDecimals[collateralCurrency],
+      tokenDecimalsNr: decimals,
+      marketCapDecimalsNr: currencyDecimals[marketcapCurrency],
+      totalSupply,
+      marketCapThreshold: marketcapThreshold,
       tokensAmount,
       curvePosition,
-      coefB,
+      coefB: BigInt(coefB),
     });
   }
 
@@ -66,11 +69,10 @@ export class Token {
       this.moonshot.provider.program,
       this.mintAddress,
     );
-    if (curveState == null) {
-      throw new Error('Curve account data not found');
-    }
-
-    return curveState.curvePosition ?? (curveState.curvePosition as bigint);
+    return calculateCurvePosition(
+      curveState.totalSupply,
+      curveState.curveAmount,
+    );
   }
 
   async getTokenAmountByCollateral(
@@ -80,33 +82,34 @@ export class Token {
       this.moonshot.provider.program,
       this.mintAddress,
     );
-    if (curveState == null) {
-      throw new Error('Curve account data not found');
-    }
 
-    const collateralAmount = BigInt(options.collateralAmount);
-
-    const curvePosition =
-      curveState.curvePosition ?? (curveState.curvePosition as bigint);
+    const { collateralAmount } = options;
 
     const {
-      collateralDecimalsNr,
-      tokenDecimalsNr,
-      marketCapDecimalsNr,
+      curveAmount,
+      collateralCurrency,
+      marketcapCurrency,
       totalSupply,
-      marketCapThreshold,
+      marketcapThreshold,
       coefB,
+      decimals,
     } = curveState;
+
+    const curvePosition = calculateCurvePosition(
+      totalSupply,
+      curveAmount,
+      options.curvePosition,
+    );
 
     return this.curve.getTokensNrFromCollateral({
       collateralAmount,
-      collateralDecimalsNr,
-      tokenDecimalsNr,
-      marketCapDecimalsNr,
+      collateralDecimalsNr: currencyDecimals[collateralCurrency],
+      tokenDecimalsNr: decimals,
+      marketCapDecimalsNr: currencyDecimals[marketcapCurrency],
       totalSupply: totalSupply,
-      marketCapThreshold,
+      marketCapThreshold: marketcapThreshold,
       curvePosition,
-      coefB: coefB,
+      coefB: BigInt(coefB),
       direction: options.tradeDirection,
     });
   }
@@ -118,14 +121,24 @@ export class Token {
       this.moonshot.provider.program,
       this.mintAddress,
     );
-    if (curveState == null) {
-      throw new Error('Curve account data not found');
-    }
 
-    const tokensAmount = BigInt(options.tokensAmount);
+    const {
+      curveAmount,
+      collateralCurrency,
+      marketcapCurrency,
+      totalSupply,
+      marketcapThreshold,
+      coefB,
+      decimals,
+    } = curveState;
 
-    const currentCurvePosition =
-      curveState.curvePosition ?? (curveState.curvePosition as bigint);
+    const { tokensAmount } = options;
+
+    const currentCurvePosition = calculateCurvePosition(
+      totalSupply,
+      curveAmount,
+      options.curvePosition,
+    );
 
     const curvePosition =
       options.tradeDirection === TradeDirection.SELL
@@ -136,24 +149,15 @@ export class Token {
       throw new Error('Insufficient tokens amount');
     }
 
-    const {
-      collateralDecimalsNr,
-      tokenDecimalsNr,
-      marketCapDecimalsNr,
-      totalSupply,
-      marketCapThreshold,
-      coefB,
-    } = curveState;
-
     return this.curve.getCollateralPrice({
-      collateralDecimalsNr,
-      tokenDecimalsNr,
-      marketCapDecimalsNr,
+      collateralDecimalsNr: currencyDecimals[collateralCurrency],
+      tokenDecimalsNr: decimals,
+      marketCapDecimalsNr: currencyDecimals[marketcapCurrency],
       totalSupply,
-      marketCapThreshold,
+      marketCapThreshold: marketcapThreshold,
       tokensAmount,
       curvePosition,
-      coefB,
+      coefB: BigInt(coefB),
     });
   }
 
