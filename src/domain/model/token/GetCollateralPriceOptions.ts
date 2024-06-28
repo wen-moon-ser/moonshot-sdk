@@ -1,3 +1,4 @@
 export interface GetCollateralPriceOptions {
-  curvePosition?: string;
+  tokensAmount: bigint;
+  curvePosition?: bigint;
 }
