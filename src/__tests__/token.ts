@@ -92,8 +92,7 @@ describe('Token', () => {
   });
 
   test('get prepared versioned tx, ready for the submit after signing', async () => {
-    // To make it work, set the apiBasePath to real endpoint in src/infra/launchpad-api/LaunchpadApiAdapter.ts
-    // and also right auth token above in the beforeAll
+    // To make it work, set the auth token above in the beforeAll
     const preparedBuyTx = await token.prepareTx({
       tokenAmount: '1000000000',
       collateralAmount: '100000000',

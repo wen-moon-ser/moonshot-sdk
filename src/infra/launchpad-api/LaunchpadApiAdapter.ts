@@ -1,3 +1,4 @@
+import { Environment } from '../../domain';
 import { ApiClient } from '../http';
 import {
   BuyTxPrepareDto,
@@ -9,8 +10,14 @@ import {
 export class LaunchpadApiAdapter {
   private apiClient: ApiClient;
 
-  constructor(private token: string) {
-    const apiBasePath = 'BASE_PATH';
+  constructor(
+    private token: string,
+    env?: Environment,
+  ) {
+    const apiBasePath =
+      env === Environment.MAINNET
+        ? 'https://bot-api.moonshot.cc/'
+        : 'https://bot-api-dev.moonshot.cc/';
     this.apiClient = new ApiClient({ apiBasePath });
   }
 

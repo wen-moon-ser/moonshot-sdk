@@ -15,7 +15,10 @@ export class Moonshot {
   constructor(options: InitMoonshotOptions) {
     this.provider = new AnchorProviderV1(options.rpcUrl);
     this.environment = options.environment;
-    this.apiAdapter = new LaunchpadApiAdapter(options.authToken);
+    this.apiAdapter = new LaunchpadApiAdapter(
+      options.authToken,
+      this.environment,
+    );
   }
 
   Token(options: Omit<InitTokenOptions, 'moonshot'>): Token {
