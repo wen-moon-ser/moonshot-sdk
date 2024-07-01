@@ -1,6 +1,6 @@
 {
   "name": "@wen-moon-ser/moonshot-sdk",
-  "version": "0.0.1-alpha.3",
+  "version": "0.0.1-alpha.7",
   "main": "index.js",
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
