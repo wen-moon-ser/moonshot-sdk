@@ -16,8 +16,8 @@ export class LaunchpadApiAdapter {
   ) {
     const apiBasePath =
       env === Environment.MAINNET
-        ? 'https://bot-api.moonshot.cc/'
-        : 'https://bot-api-dev.moonshot.cc/';
+        ? 'https://bot-api.moonshot.cc/v1/'
+        : 'https://bot-api-dev.moonshot.cc/v1/';
     this.apiClient = new ApiClient({ apiBasePath });
   }
 
