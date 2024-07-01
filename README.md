@@ -3,20 +3,20 @@
 ## Initial spec
 
 ```typescript
-const sdk = new MoonSDK({rpcUrl: string});
-const token = sdk.Token(mintAddress);
+import { Moonshot } from '@wen-moon-ser/moonshot-sdk';
 
-token.getCollateralPrice(options?: {curvePosition?: string }); // optionally accepts curve position, if not given it will take current token curve position from chain
-token.getCurvePosition(); // gets current curve position from chain
+const rpcUrl = 'https://api.mainnet-beta.solana.com';
+const minimalPrice = 10n;
 
-// again, if curve position is not provided we calculate it from chain
-token.getTokenAmountByCollateral(options: {collateralAmount: string, tradeDirection: 'BUY' | 'SELL', curvePosition?: string});
+const moonshot = new Moonshot({
+    rpcUrl,
+    authToken: 'YOUR_AUTH_TOKEN',
+    environment: Environment.MAINNET,
+});
 
-token.getCollateralAmountByTokens(options: {tokenAmount: string, tradeDirection: 'BUY' | 'SELL', curvePosition?: string});
+const token = moonshot.Token({
+    mintAddress: 'AhaAKM3dUKAeYoZCTXF8fqqbjcvugbgEmst6557jkZ9h',
+});
 
-// for v0 alpha release
-const partiallySignedTxSerialized = token.getTx(options: {tokenAmount: string, collateralAmount: string, slippage: number, creatorPK: string, tradeDirection: 'BUY' | 'SELL'});
-
-// for beta release which will follow in a day or two, we add those options
-const partiallySignedSerializedTx = token.getTx(options: {tokenAmount: string, collateralAmount: string, slippage: number, creatorPK: string, tradeDirection: 'BUY' | 'SELL', prioFeeMicroLamports: number, affiliateFeeWallet: string, affiliateFeeBps: number});
+const curvePos = await token.getCurvePosition();
 ```
