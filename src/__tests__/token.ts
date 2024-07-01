@@ -1,3 +1,5 @@
+import 'reflect-metadata';
+import { TradeDirection } from '@heliofi/launchpad-common';
 import { Environment, Moonshot, Token } from '../domain';
 
 describe('Token', () => {
@@ -9,7 +11,7 @@ describe('Token', () => {
   beforeAll(() => {
     moonshot = new Moonshot({
       rpcUrl,
-      authToken: '',
+      authToken: 'YOUR_AUTH_TOKEN',
       environment: Environment.MAINNET,
     });
 
@@ -20,7 +22,7 @@ describe('Token', () => {
 
   test('get collateral price', async () => {
     const initalPrice = await token.getCollateralPrice({
-      tokensAmount: BigInt(1_000_000_000),
+      tokensAmount: BigInt(1e9), // 1 token in minimal units
       curvePosition: 0n,
     });
     expect(initalPrice).toBe(minimalPrice);
@@ -29,5 +31,89 @@ describe('Token', () => {
       tokensAmount: BigInt(1_000_000_000),
     });
     expect(currentPrice).toBeGreaterThan(minimalPrice);
+  });
+
+  test('get curve position price', async () => {
+    const curvePosition = await token.getCurvePosition();
+    expect(curvePosition).toBe(6997649000000000n);
+  });
+
+  test('get token price per collaterall', async () => {
+    const buyAmountAtBeginning = await token.getTokenAmountByCollateral({
+      collateralAmount: BigInt(1e8), // 0.1 SOL
+      tradeDirection: TradeDirection.BUY,
+      curvePosition: 0n,
+    });
+
+    expect(buyAmountAtBeginning).toBeGreaterThan(BigInt(1e7) * minimalPrice); // price raises with curve advance
+
+    const buyAmount = await token.getTokenAmountByCollateral({
+      collateralAmount: BigInt(1e8), // 0.1 SOL
+      tradeDirection: TradeDirection.BUY,
+    });
+
+    // token.getCollateralAmountByTokens(options: {tokenAmount: string, tradeDirection: 'BUY' | 'SELL', curvePosition?: string});
+    expect(buyAmount).toBeLessThan(buyAmountAtBeginning); // Less tokens for same amount as curve advances
+
+    const sellAmount = await token.getTokenAmountByCollateral({
+      collateralAmount: BigInt(1e8), // 0.1 SOL
+      tradeDirection: TradeDirection.SELL,
+    });
+
+    expect(sellAmount).toBeGreaterThan(buyAmount); // On sell curve goes backward, 0.1 sol means more tokens
+    expect(sellAmount).toBeLessThan(buyAmountAtBeginning); // price raises with curve advance
+  });
+
+  test('get collaterall price by tokens', async () => {
+    const buyCollateralAtBeginning = await token.getCollateralAmountByTokens({
+      tokensAmount: BigInt(1e15), // 1m tokens
+      tradeDirection: TradeDirection.BUY,
+      curvePosition: 0n,
+    });
+
+    expect(buyCollateralAtBeginning).toBeGreaterThan(
+      BigInt(1e6) * minimalPrice,
+    ); // price raises with curve advan
+
+    const buyCollateral = await token.getCollateralAmountByTokens({
+      tokensAmount: BigInt(1e15), // 1m tokens
+      tradeDirection: TradeDirection.BUY,
+    });
+
+    expect(buyCollateral).toBeGreaterThan(buyCollateralAtBeginning); // Less tokens for same amount as curve advances
+
+    const sellCollateral = await token.getCollateralAmountByTokens({
+      tokensAmount: BigInt(1e15), // 1m tokens
+      tradeDirection: TradeDirection.SELL,
+    });
+
+    expect(sellCollateral).toBeLessThan(buyCollateral); // On sell curve goes backward, less collateral for same amount of tokens
+    expect(sellCollateral).toBeGreaterThan(buyCollateralAtBeginning); // but still more then in beginning of the curve
+  });
+
+  test('get prepared versioned tx, ready for the submit after signing', async () => {
+    // To make it work, set the apiBasePath to real endpoint in src/infra/launchpad-api/LaunchpadApiAdapter.ts
+    // and also right auth token above in the beforeAll
+    const preparedBuyTx = await token.prepareTx({
+      tokenAmount: '1000000000',
+      collateralAmount: '100000000',
+      slippageBps: 100,
+      creatorPK: 'Cb8Fnhp95f9dLxB3sYkNCbN3Mjxuc3v2uQZ7uVeqvNGB',
+      tradeDirection: TradeDirection.BUY,
+    });
+
+    expect(preparedBuyTx?.transaction).toBeDefined();
+    expect(preparedBuyTx?.token).toBeDefined();
+
+    const preparedSellTx = await token.prepareTx({
+      tokenAmount: '1000000000',
+      collateralAmount: '100000000',
+      slippageBps: 100,
+      creatorPK: 'Cb8Fnhp95f9dLxB3sYkNCbN3Mjxuc3v2uQZ7uVeqvNGB',
+      tradeDirection: TradeDirection.SELL,
+    });
+
+    expect(preparedSellTx?.transaction).toBeDefined();
+    expect(preparedSellTx?.token).toBeDefined();
   });
 });

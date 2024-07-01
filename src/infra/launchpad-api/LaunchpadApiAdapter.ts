@@ -10,7 +10,7 @@ export class LaunchpadApiAdapter {
   private apiClient: ApiClient;
 
   constructor(private token: string) {
-    const apiBasePath = 'https://bot.api.mintlp.io/v1/'; // TODO change this once released
+    const apiBasePath = 'BASE_PATH';
     this.apiClient = new ApiClient({ apiBasePath });
   }
 
