@@ -18,9 +18,9 @@ export abstract class BaseAnchorProvider<T extends anchor.Idl> {
     protected IDL: T,
     protected PROGRAM_ID: anchor.web3.PublicKey,
   ) {
-    this._program = new Program<T>(this.IDL, this.PROGRAM_ID);
-    this._connection = new Connection(this.connectionStr);
+    this._connection = new Connection(connectionStr);
     this.setProvider();
+    this._program = new Program<T>(this.IDL, this.PROGRAM_ID);
   }
 
   get program(): Program<T> {

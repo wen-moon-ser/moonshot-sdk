@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import { InitTokenOptions } from './InitTokenOptions';
 import { Moonshot } from '../moonshot';
 import { PrepareTxOptions } from './PrepareTxOptions';
@@ -69,6 +70,7 @@ export class Token {
       this.moonshot.provider.program,
       this.mintAddress,
     );
+
     return calculateCurvePosition(
       curveState.totalSupply,
       curveState.curveAmount,
