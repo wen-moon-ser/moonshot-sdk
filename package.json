@@ -1,5 +1,5 @@
 {
-  "name": "moonshot-sdk",
+  "name": "@wen-moon-ser/moonshot-sdk",
   "version": "0.0.1-alpha.3",
   "main": "index.js",
   "scripts": {
