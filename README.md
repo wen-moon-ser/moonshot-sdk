@@ -6,17 +6,17 @@
 import { Moonshot } from '@wen-moon-ser/moonshot-sdk';
 
 const rpcUrl = 'https://api.mainnet-beta.solana.com';
-const minimalPrice = 10n;
 
 const moonshot = new Moonshot({
-    rpcUrl,
-    authToken: 'YOUR_AUTH_TOKEN',
-    environment: Environment.MAINNET,
+  rpcUrl,
+  authToken: 'YOUR_AUTH_TOKEN',
+  environment: Environment.MAINNET,
 });
 
 const token = moonshot.Token({
-    mintAddress: 'AhaAKM3dUKAeYoZCTXF8fqqbjcvugbgEmst6557jkZ9h',
+  mintAddress: 'HLzCwHi19PkUGmasU1naAYMuigsbTsHcj4egDdhd24s1',
 });
 
 const curvePos = await token.getCurvePosition();
+console.log(curvePos); // Prints the current curve position
 ```
