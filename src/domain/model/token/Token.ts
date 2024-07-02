@@ -169,15 +169,15 @@ export class Token {
     return options.tradeDirection === TradeDirection.SELL
       ? this.moonshot.apiAdapter.prepareSell(this.mintAddress, {
           creatorPK: options.creatorPK,
-          amount: options.tokenAmount,
+          amount: String(options.tokenAmount),
           slippageBps: options.slippageBps,
-          collateralAmount: options.collateralAmount,
+          collateralAmount: String(options.collateralAmount),
         })
       : this.moonshot.apiAdapter.prepareBuy(this.mintAddress, {
           creatorPK: options.creatorPK,
-          amount: options.tokenAmount,
+          amount: String(options.tokenAmount),
           slippageBps: options.slippageBps,
-          collateralAmount: options.collateralAmount,
+          collateralAmount: String(options.collateralAmount),
         });
   }
 }
