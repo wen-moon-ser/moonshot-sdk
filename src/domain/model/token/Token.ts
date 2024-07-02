@@ -11,7 +11,7 @@ import {
   TradeDirection,
 } from '@heliofi/launchpad-common';
 import { getCurveAccount } from '../../../solana';
-import { currencyDecimals } from '../currency/CurrencyDecimals';
+import { currencyDecimals } from '../currency';
 import { calculateCurvePosition } from '../../../solana/utils/calculateCurvePosition';
 
 export class Token {
@@ -45,7 +45,7 @@ export class Token {
       decimals,
     } = curveState;
 
-    const { tokensAmount } = options;
+    const { tokenAmount } = options;
 
     const curvePosition = calculateCurvePosition(
       totalSupply,
@@ -59,7 +59,7 @@ export class Token {
       marketCapDecimalsNr: currencyDecimals[marketcapCurrency],
       totalSupply,
       marketCapThreshold: marketcapThreshold,
-      tokensAmount,
+      tokensAmount: tokenAmount,
       curvePosition,
       coefB: BigInt(coefB),
     });
@@ -112,7 +112,7 @@ export class Token {
       marketCapThreshold: marketcapThreshold,
       curvePosition,
       coefB: BigInt(coefB),
-      direction: options.tradeDirection,
+      direction: options.tradeDirection as TradeDirection,
     });
   }
 
@@ -134,7 +134,7 @@ export class Token {
       decimals,
     } = curveState;
 
-    const { tokensAmount } = options;
+    const { tokenAmount } = options;
 
     const currentCurvePosition = calculateCurvePosition(
       totalSupply,
@@ -144,7 +144,7 @@ export class Token {
 
     const curvePosition =
       options.tradeDirection === TradeDirection.SELL
-        ? currentCurvePosition - tokensAmount
+        ? currentCurvePosition - tokenAmount
         : currentCurvePosition;
 
     if (curvePosition < 0n) {
@@ -157,7 +157,7 @@ export class Token {
       marketCapDecimalsNr: currencyDecimals[marketcapCurrency],
       totalSupply,
       marketCapThreshold: marketcapThreshold,
-      tokensAmount,
+      tokensAmount: tokenAmount,
       curvePosition,
       coefB: BigInt(coefB),
     });

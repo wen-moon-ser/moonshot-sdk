@@ -22,13 +22,13 @@ describe('Token', () => {
 
   test('get collateral price', async () => {
     const initalPrice = await token.getCollateralPrice({
-      tokensAmount: BigInt(1e9), // 1 token in minimal units
+      tokenAmount: BigInt(1e9), // 1 token in minimal units
       curvePosition: 0n,
     });
     expect(initalPrice).toBe(minimalPrice);
 
     const currentPrice = await token.getCollateralPrice({
-      tokensAmount: BigInt(1_000_000_000),
+      tokenAmount: BigInt(1_000_000_000),
     });
     expect(currentPrice).toBeGreaterThan(minimalPrice);
   });
@@ -66,7 +66,7 @@ describe('Token', () => {
 
   test('get collaterall price by tokens', async () => {
     const buyCollateralAtBeginning = await token.getCollateralAmountByTokens({
-      tokensAmount: BigInt(1e15), // 1m tokens
+      tokenAmount: BigInt(1e15), // 1m tokens
       tradeDirection: TradeDirection.BUY,
       curvePosition: 0n,
     });
@@ -76,14 +76,14 @@ describe('Token', () => {
     ); // price raises with curve advan
 
     const buyCollateral = await token.getCollateralAmountByTokens({
-      tokensAmount: BigInt(1e15), // 1m tokens
+      tokenAmount: BigInt(1e15), // 1m tokens
       tradeDirection: TradeDirection.BUY,
     });
 
     expect(buyCollateral).toBeGreaterThan(buyCollateralAtBeginning); // Less tokens for same amount as curve advances
 
     const sellCollateral = await token.getCollateralAmountByTokens({
-      tokensAmount: BigInt(1e15), // 1m tokens
+      tokenAmount: BigInt(1e15), // 1m tokens
       tradeDirection: TradeDirection.SELL,
     });
 
