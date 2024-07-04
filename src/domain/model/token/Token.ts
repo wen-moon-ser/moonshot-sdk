@@ -215,9 +215,9 @@ export class Token {
   private async getTradeInstruction(
     program: Program<TokenLaunchpadIdl>,
     req: TradeRequest,
-    direction: TradeDirection,
+    direction: 'BUY' | 'SELL',
   ): Promise<TransactionInstruction> {
-    if (direction === TradeDirection.BUY) {
+    if (direction === 'BUY') {
       return getBuyTx(program, req);
     }
     return getSellTx(program, req);
