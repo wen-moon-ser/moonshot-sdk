@@ -10,9 +10,12 @@ import {
   LinearCurveV1,
   TradeDirection,
 } from '@heliofi/launchpad-common';
-import { getCurveAccount } from '../../../solana';
+import { getCurveAccount, TokenLaunchpadIdl } from '../../../solana';
 import { currencyDecimals } from '../currency';
 import { calculateCurvePosition } from '../../../solana/utils/calculateCurvePosition';
+import { PublicKey, TransactionInstruction } from '@solana/web3.js';
+import { Program } from '@coral-xyz/anchor';
+import { getBuyTx, getSellTx, TradeRequest } from '../instructions';
 
 export class Token {
   private moonshot: Moonshot;
@@ -163,6 +166,34 @@ export class Token {
     });
   }
 
+  async prepareIxs(
+    options: PrepareTxOptions,
+  ): Promise<{ ixs: TransactionInstruction[] }> {
+    const program = this.moonshot.provider.program;
+
+    const {
+      tokenAmount,
+      collateralAmount,
+      slippageBps,
+      creatorPK,
+      tradeDirection,
+    } = options;
+
+    const curveAccountPK = this.deriveCurveAddress(program);
+
+    const req: TradeRequest = {
+      tokenAmount,
+      collateralAmount,
+      slippageBps,
+      sender: new PublicKey(creatorPK),
+      curveAccount: new PublicKey(curveAccountPK),
+      mint: new PublicKey(this.mintAddress),
+    };
+    return {
+      ixs: [await this.getTradeInstruction(program, req, tradeDirection)],
+    };
+  }
+
   prepareTx(
     options: PrepareTxOptions,
   ): Promise<{ transaction: string; token: string }> {
@@ -179,5 +210,24 @@ export class Token {
           slippageBps: options.slippageBps,
           collateralAmount: String(options.collateralAmount),
         });
+  }
+
+  private async getTradeInstruction(
+    program: Program<TokenLaunchpadIdl>,
+    req: TradeRequest,
+    direction: TradeDirection,
+  ): Promise<TransactionInstruction> {
+    if (direction === TradeDirection.BUY) {
+      return getBuyTx(program, req);
+    }
+    return getSellTx(program, req);
+  }
+
+  private deriveCurveAddress(program: Program<TokenLaunchpadIdl>): string {
+    const [address] = PublicKey.findProgramAddressSync(
+      [Buffer.from('token'), new PublicKey(this.mintAddress).toBytes()],
+      program.programId,
+    );
+    return address.toBase58();
   }
 }

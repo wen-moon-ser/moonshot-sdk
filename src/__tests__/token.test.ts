@@ -94,8 +94,8 @@ describe('Token', () => {
   test('get prepared versioned tx, ready for the submit after signing', async () => {
     // To make it work, set the auth token above in the beforeAll
     const preparedBuyTx = await token.prepareTx({
-      tokenAmount: '1000000000',
-      collateralAmount: '100000000',
+      tokenAmount: 1000000000n,
+      collateralAmount: 100000000n,
       slippageBps: 100,
       creatorPK: 'Cb8Fnhp95f9dLxB3sYkNCbN3Mjxuc3v2uQZ7uVeqvNGB',
       tradeDirection: TradeDirection.BUY,
@@ -105,8 +105,8 @@ describe('Token', () => {
     expect(preparedBuyTx?.token).toBeDefined();
 
     const preparedSellTx = await token.prepareTx({
-      tokenAmount: '1000000000',
-      collateralAmount: '100000000',
+      tokenAmount: 1000000000n,
+      collateralAmount: 100000000n,
       slippageBps: 100,
       creatorPK: 'Cb8Fnhp95f9dLxB3sYkNCbN3Mjxuc3v2uQZ7uVeqvNGB',
       tradeDirection: TradeDirection.SELL,
@@ -114,5 +114,27 @@ describe('Token', () => {
 
     expect(preparedSellTx?.transaction).toBeDefined();
     expect(preparedSellTx?.token).toBeDefined();
+  });
+
+  test('get prepared instructions, ready for the submit after signing', async () => {
+    const preparedBuyIx = await token.prepareIxs({
+      tokenAmount: 1000000000n,
+      collateralAmount: 100000000n,
+      slippageBps: 100,
+      creatorPK: 'Cb8Fnhp95f9dLxB3sYkNCbN3Mjxuc3v2uQZ7uVeqvNGB',
+      tradeDirection: TradeDirection.BUY,
+    });
+
+    expect(preparedBuyIx.ixs[0]).toBeDefined();
+
+    const preparedSellIx = await token.prepareIxs({
+      tokenAmount: 1000000000n,
+      collateralAmount: 100000000n,
+      slippageBps: 100,
+      creatorPK: 'Cb8Fnhp95f9dLxB3sYkNCbN3Mjxuc3v2uQZ7uVeqvNGB',
+      tradeDirection: TradeDirection.SELL,
+    });
+
+    expect(preparedSellIx.ixs[0]).toBeDefined();
   });
 });
