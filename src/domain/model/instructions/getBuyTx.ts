@@ -54,7 +54,6 @@ export const getBuyTx = async (
       configAccount,
       dexFee: dexFeeAccount,
       helioFee: helioFeeAccount,
-      helioFeeAccount,
       tokenProgram: TOKEN_PROGRAM_ID,
       associatedTokenProgram: ASSOCIATED_TOKEN_PROGRAM_ID,
       systemProgram: SystemProgram.programId,
