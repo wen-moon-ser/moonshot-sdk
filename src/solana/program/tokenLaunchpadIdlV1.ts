@@ -83,11 +83,6 @@ export default {
           isSigner: true,
         },
         {
-          name: 'backendAuthority',
-          isMut: false,
-          isSigner: true,
-        },
-        {
           name: 'senderTokenAccount',
           isMut: true,
           isSigner: false,
@@ -153,11 +148,6 @@ export default {
         {
           name: 'sender',
           isMut: true,
-          isSigner: true,
-        },
-        {
-          name: 'backendAuthority',
-          isMut: false,
           isSigner: true,
         },
         {
