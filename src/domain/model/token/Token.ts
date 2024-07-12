@@ -194,24 +194,6 @@ export class Token {
     };
   }
 
-  prepareTx(
-    options: PrepareTxOptions,
-  ): Promise<{ transaction: string; token: string }> {
-    return options.tradeDirection === TradeDirection.SELL
-      ? this.moonshot.apiAdapter.prepareSell(this.mintAddress, {
-          creatorPK: options.creatorPK,
-          amount: String(options.tokenAmount),
-          slippageBps: options.slippageBps,
-          collateralAmount: String(options.collateralAmount),
-        })
-      : this.moonshot.apiAdapter.prepareBuy(this.mintAddress, {
-          creatorPK: options.creatorPK,
-          amount: String(options.tokenAmount),
-          slippageBps: options.slippageBps,
-          collateralAmount: String(options.collateralAmount),
-        });
-  }
-
   private async getTradeInstruction(
     program: Program<TokenLaunchpadIdl>,
     req: TradeRequest,
