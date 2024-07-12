@@ -17,7 +17,9 @@ export abstract class BaseAnchorProvider<T extends anchor.Idl> {
     protected connectionStr: string,
     protected IDL: T,
     protected PROGRAM_ID: anchor.web3.PublicKey,
+    confirmOptions?: ConfirmOptions,
   ) {
+    this.txOpts = { ...this.txOpts, ...confirmOptions };
     this._connection = new Connection(connectionStr);
     this.setProvider();
     this._program = new Program<T>(this.IDL, this.PROGRAM_ID);
