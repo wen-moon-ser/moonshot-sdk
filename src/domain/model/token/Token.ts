@@ -16,6 +16,7 @@ import { calculateCurvePosition } from '../../../solana/utils/calculateCurvePosi
 import { PublicKey, TransactionInstruction } from '@solana/web3.js';
 import { Program } from '@coral-xyz/anchor';
 import { getBuyTx, getSellTx, TradeRequest } from '../instructions';
+import { CurveAccount } from '../curve';
 
 export class Token {
   private moonshot: Moonshot;
@@ -28,6 +29,10 @@ export class Token {
     this.moonshot = options.moonshot;
     this.mintAddress = options.mintAddress;
     this.curve = new LinearCurveV1(); // Add different curve types when implemented
+  }
+
+  async getCurveAccount(): Promise<CurveAccount> {
+    return getCurveAccount(this.moonshot.provider.program, this.mintAddress);
   }
 
   async getCollateralPrice(

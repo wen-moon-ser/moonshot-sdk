@@ -1,7 +1,7 @@
 import { Program } from '@coral-xyz/anchor';
 import { PublicKey } from '@solana/web3.js';
 import { TokenLaunchpadIdl } from '../program';
-import { CurveAccount } from '../../domain/model/curve/CurveAccount';
+import { CurveAccount } from '../../domain';
 import { convertBNtoBigInt } from './convertBNToBigInt';
 import { convertContractCurrency } from './convertContractCurrency';
 
