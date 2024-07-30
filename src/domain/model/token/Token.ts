@@ -5,72 +5,50 @@ import { PrepareTxOptions } from './PrepareTxOptions';
 import { GetCollateralPriceOptions } from './GetCollateralPriceOptions';
 import { GetTokenAmountOptions } from './GetTokenAmountOptions';
 import { GetCollateralAmountOptions } from './GetCollateralAmountOptions';
-import {
-  BaseCurve,
-  LinearCurveV1,
-  TradeDirection,
-} from '@heliofi/launchpad-common';
 import { getCurveAccount, TokenLaunchpadIdl } from '../../../solana';
-import { currencyDecimals } from '../currency';
 import { calculateCurvePosition } from '../../../solana/utils/calculateCurvePosition';
 import { PublicKey, TransactionInstruction } from '@solana/web3.js';
 import { Program } from '@coral-xyz/anchor';
 import { getBuyTx, getSellTx, TradeRequest } from '../instructions';
-import { CurveAccount } from '../curve';
+import { CurveAccount, getCurveAdapter } from '../curve';
+import { AbstractCurveAdapter } from '../curve/AbstractCurveAdapter';
 
 export class Token {
   private moonshot: Moonshot;
 
-  private mintAddress: string;
+  private readonly mintAddress: string;
 
-  private curve: BaseCurve;
+  private _curveAdapter?: AbstractCurveAdapter;
 
   constructor(options: InitTokenOptions) {
     this.moonshot = options.moonshot;
     this.mintAddress = options.mintAddress;
-    this.curve = new LinearCurveV1(); // Add different curve types when implemented
+  }
+
+  private async curveAdapter(): Promise<AbstractCurveAdapter> {
+    if (this._curveAdapter != null) {
+      return this._curveAdapter;
+    }
+    const curveAccount = await this.getCurveAccount();
+    return getCurveAdapter(
+      curveAccount,
+      this.moonshot.provider.program,
+      this.mintAddress,
+    );
   }
 
   async getCurveAccount(): Promise<CurveAccount> {
     return getCurveAccount(this.moonshot.provider.program, this.mintAddress);
   }
 
+  /**
+   * @deprecated
+   * Please use getTokenAmountByCollateral instead
+   * */
   async getCollateralPrice(
     options: GetCollateralPriceOptions,
   ): Promise<bigint> {
-    const curveState = await getCurveAccount(
-      this.moonshot.provider.program,
-      this.mintAddress,
-    );
-
-    const {
-      curveAmount,
-      collateralCurrency,
-      marketcapCurrency,
-      totalSupply,
-      marketcapThreshold,
-      coefB,
-      decimals,
-    } = curveState;
-
-    const { tokenAmount } = options;
-
-    const curvePosition = calculateCurvePosition(
-      totalSupply,
-      curveAmount,
-      options.curvePosition,
-    );
-
-    return this.curve.getCollateralPrice({
-      collateralDecimalsNr: currencyDecimals[collateralCurrency],
-      tokenDecimalsNr: decimals,
-      marketCapDecimalsNr: currencyDecimals[marketcapCurrency],
-      totalSupply,
-      marketCapThreshold: marketcapThreshold,
-      tokensAmount: tokenAmount,
-      curvePosition,
-      coefB: BigInt(coefB),
-    });
+    return (await this.curveAdapter()).getCollateralPrice(options);
   }
 
   async getCurvePosition(): Promise<bigint> {
@@ -88,87 +66,13 @@ export class Token {
   async getTokenAmountByCollateral(
     options: GetTokenAmountOptions,
   ): Promise<bigint> {
-    const curveState = await getCurveAccount(
-      this.moonshot.provider.program,
-      this.mintAddress,
-    );
-
-    const { collateralAmount } = options;
-
-    const {
-      curveAmount,
-      collateralCurrency,
-      marketcapCurrency,
-      totalSupply,
-      marketcapThreshold,
-      coefB,
-      decimals,
-    } = curveState;
-
-    const curvePosition = calculateCurvePosition(
-      totalSupply,
-      curveAmount,
-      options.curvePosition,
-    );
-
-    return this.curve.getTokensNrFromCollateral({
-      collateralAmount,
-      collateralDecimalsNr: currencyDecimals[collateralCurrency],
-      tokenDecimalsNr: decimals,
-      marketCapDecimalsNr: currencyDecimals[marketcapCurrency],
-      totalSupply: totalSupply,
-      marketCapThreshold: marketcapThreshold,
-      curvePosition,
-      coefB: BigInt(coefB),
-      direction: options.tradeDirection as TradeDirection,
-    });
+    return (await this.curveAdapter()).getTokenAmountByCollateral(options);
   }
 
   async getCollateralAmountByTokens(
     options: GetCollateralAmountOptions,
   ): Promise<bigint> {
-    const curveState = await getCurveAccount(
-      this.moonshot.provider.program,
-      this.mintAddress,
-    );
-
-    const {
-      curveAmount,
-      collateralCurrency,
-      marketcapCurrency,
-      totalSupply,
-      marketcapThreshold,
-      coefB,
-      decimals,
-    } = curveState;
-
-    const { tokenAmount } = options;
-
-    const currentCurvePosition = calculateCurvePosition(
-      totalSupply,
-      curveAmount,
-      options.curvePosition,
-    );
-
-    const curvePosition =
-      options.tradeDirection === TradeDirection.SELL
-        ? currentCurvePosition - tokenAmount
-        : currentCurvePosition;
-
-    if (curvePosition < 0n) {
-      throw new Error('Insufficient tokens amount');
-    }
-
-    return this.curve.getCollateralPrice({
-      collateralDecimalsNr: currencyDecimals[collateralCurrency],
-      tokenDecimalsNr: decimals,
-      marketCapDecimalsNr: currencyDecimals[marketcapCurrency],
-      totalSupply,
-      marketCapThreshold: marketcapThreshold,
-      tokensAmount: tokenAmount,
-      curvePosition,
-      coefB: BigInt(coefB),
-    });
+    return (await this.curveAdapter()).getCollateralAmountByTokens(options);
   }
 
   async prepareIxs(
