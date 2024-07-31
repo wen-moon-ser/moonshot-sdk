@@ -3,7 +3,7 @@ import { PublicKey } from '@solana/web3.js';
 import { TokenLaunchpadIdl } from '../program';
 import { CurveAccount } from '../../domain';
 import { convertBNtoBigInt } from './convertBNToBigInt';
-import { convertContractCurrency } from './convertContractCurrency';
+import { convertContractEnums } from './convertContractCurrency';
 
 export async function getCurveAccount(
   program: Program<TokenLaunchpadIdl>,
@@ -21,5 +21,5 @@ export async function getCurveAccount(
     throw new Error('Curve account data not found');
   }
   const account = convertBNtoBigInt(curveAccount) as CurveAccount;
-  return convertContractCurrency(account);
+  return convertContractEnums(account);
 }
