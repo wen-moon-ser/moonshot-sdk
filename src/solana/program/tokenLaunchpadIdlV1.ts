@@ -512,12 +512,16 @@ export default {
         kind: 'struct',
         fields: [
           {
-            name: 'amount',
+            name: 'tokenAmount',
             type: 'u64',
           },
           {
             name: 'collateralAmount',
             type: 'u64',
+          },
+          {
+            name: 'fixedSide',
+            type: 'u8',
           },
           {
             name: 'slippageBps',
@@ -643,6 +647,9 @@ export default {
           {
             name: 'LinearV1',
           },
+          {
+            name: 'ConstantProductV1',
+          },
         ],
       },
     },
@@ -656,6 +663,20 @@ export default {
           },
           {
             name: 'Sell',
+          },
+        ],
+      },
+    },
+    {
+      name: 'FixedSide',
+      type: {
+        kind: 'enum',
+        variants: [
+          {
+            name: 'ExactIn',
+          },
+          {
+            name: 'ExactOut',
           },
         ],
       },
@@ -903,6 +924,26 @@ export default {
     },
     {
       code: 6030,
+      name: 'IncorrectMarketCap',
+      msg: 'For Constant Product the Market Cap threshold cannot be higher than 325 SOL',
+    },
+    {
+      code: 6031,
+      name: 'IncorrectDecimals',
+      msg: 'For Constant Product the Decimal places cannot be other than 9',
+    },
+    {
+      code: 6032,
+      name: 'IncorrectMaxSupply',
+      msg: 'For Constant Product the Maximal Token Supply cannot be other than 1_000_000_000',
+    },
+    {
+      code: 6033,
+      name: 'MarketCapTooHigh',
+      msg: 'Market Cap Threshold set too high, will not be hit even if Curve Hard Limit reached',
+    },
+    {
+      code: 6034,
       name: 'General',
       msg: 'General error',
     },

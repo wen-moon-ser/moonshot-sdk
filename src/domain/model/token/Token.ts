@@ -12,6 +12,7 @@ import { Program } from '@coral-xyz/anchor';
 import { getBuyTx, getSellTx, TradeRequest } from '../instructions';
 import { CurveAccount, getCurveAdapter } from '../curve';
 import { AbstractCurveAdapter } from '../curve/AbstractCurveAdapter';
+import { FixedSide } from './FixedSide';
 
 export class Token {
   private moonshot: Moonshot;
@@ -90,6 +91,11 @@ export class Token {
 
     const curveAccountPK = this.deriveCurveAddress(program);
 
+    const fixedSide =
+      options.fixedSide ?? tradeDirection === 'BUY'
+        ? FixedSide.OUT
+        : FixedSide.IN;
+
     const req: TradeRequest = {
       tokenAmount,
       collateralAmount,
@@ -97,6 +103,7 @@ export class Token {
       sender: new PublicKey(creatorPK),
       curveAccount: new PublicKey(curveAccountPK),
       mint: new PublicKey(this.mintAddress),
+      fixedSide,
     };
     return {
       ixs: [await this.getTradeInstruction(program, req, tradeDirection)],

@@ -38,8 +38,9 @@ export const getBuyTx = async (
   );
 
   const data = {
-    amount: convertBigIntToBN(req.tokenAmount),
+    tokenAmount: convertBigIntToBN(req.tokenAmount),
     collateralAmount: convertBigIntToBN(req.collateralAmount),
+    fixedSide: req.fixedSide,
     slippageBps: new BN(req.slippageBps),
   };
 
