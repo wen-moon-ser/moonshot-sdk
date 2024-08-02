@@ -91,10 +91,9 @@ export class Token {
 
     const curveAccountPK = this.deriveCurveAddress(program);
 
-    const fixedSide =
-      options.fixedSide ?? tradeDirection === 'BUY'
-        ? FixedSide.OUT
-        : FixedSide.IN;
+    const defaultFixedSide =
+      tradeDirection === 'BUY' ? FixedSide.OUT : FixedSide.IN;
+    const fixedSide = options.fixedSide ?? defaultFixedSide;
 
     const req: TradeRequest = {
       tokenAmount,

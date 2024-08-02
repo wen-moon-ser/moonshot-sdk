@@ -465,6 +465,12 @@ export default {
             name: 'bump',
             type: 'u8',
           },
+          {
+            name: 'migrationTarget',
+            type: {
+              defined: 'MigrationTarget',
+            },
+          },
         ],
       },
     },
@@ -501,6 +507,10 @@ export default {
           },
           {
             name: 'curveType',
+            type: 'u8',
+          },
+          {
+            name: 'migrationTarget',
             type: 'u8',
           },
         ],
@@ -649,6 +659,20 @@ export default {
           },
           {
             name: 'ConstantProductV1',
+          },
+        ],
+      },
+    },
+    {
+      name: 'MigrationTarget',
+      type: {
+        kind: 'enum',
+        variants: [
+          {
+            name: 'Raydium',
+          },
+          {
+            name: 'Meteora',
           },
         ],
       },
@@ -944,6 +968,11 @@ export default {
     },
     {
       code: 6034,
+      name: 'InvalidMigrationTarget',
+      msg: 'This Migration Target is not supported!',
+    },
+    {
+      code: 6035,
       name: 'General',
       msg: 'General error',
     },
