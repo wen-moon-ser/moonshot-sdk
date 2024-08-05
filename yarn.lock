@@ -368,10 +368,10 @@
   resolved "https://registry.yarnpkg.com/@eslint/js/-/js-8.56.0.tgz#ef20350fec605a7f7035a01764731b2de0f3782b"
   integrity sha512-gMsVel9D7f2HLkBma9VbtzZRehRogVRfbr++f06nL2vnCGCNlzOD+/MUov/F4p8myyAHspEhVobgjpX64q5m6A==
 
-"@heliofi/launchpad-common@0.2.0-alpha.3":
-  version "0.2.0-alpha.3"
-  resolved "https://registry.yarnpkg.com/@heliofi/launchpad-common/-/launchpad-common-0.2.0-alpha.3.tgz#85e68d838a6758a4243acc695623a7e21162fd15"
-  integrity sha512-5O3UJp4i0iL/bJMtG2GQPCLp+cObCTADb+GUAy0yyJrjHjT8Q8QD3y9FBJ8tuMe8MhH0E5NY8DwjxvzG7Dhw3w==
+"@heliofi/launchpad-common@1.0.0-alpha.0":
+  version "1.0.0-alpha.0"
+  resolved "https://registry.yarnpkg.com/@heliofi/launchpad-common/-/launchpad-common-1.0.0-alpha.0.tgz#4a18d90f1b9bd67ae3ff635fc9d3ca9999c3cf08"
+  integrity sha512-yFDn07yQMwC2P2+0mzz36F0tG1TRvhhTp7DGbhWp8NhxVPi/WwZgZkknEPOYqs9DhRbfWfM6Q2u9aqrU6mUPuA==
   dependencies:
     "@solana/web3.js" "^1.91.8"
     bignumber.js "9.1.1"

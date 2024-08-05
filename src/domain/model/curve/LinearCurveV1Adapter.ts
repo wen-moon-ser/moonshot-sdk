@@ -34,7 +34,7 @@ export class LinearCurveV1Adapter extends AbstractCurveAdapter {
       options.curvePosition,
     );
 
-    return this.curve.getCollateralPrice({
+    const price = this.curve.getCollateralPrice({
       collateralDecimalsNr: currencyDecimals[collateralCurrency],
       tokenDecimalsNr: decimals,
       marketCapDecimalsNr: currencyDecimals[marketcapCurrency],
@@ -44,6 +44,8 @@ export class LinearCurveV1Adapter extends AbstractCurveAdapter {
       curvePosition,
       coefB: BigInt(coefB),
     });
+
+    return BigInt(price.toFixed(0));
   }
 
   async getCollateralAmountByTokens(
@@ -78,7 +80,7 @@ export class LinearCurveV1Adapter extends AbstractCurveAdapter {
       throw new Error('Insufficient tokens amount');
     }
 
-    return this.curve.getCollateralPrice({
+    const price = this.curve.getCollateralPrice({
       collateralDecimalsNr: currencyDecimals[collateralCurrency],
       tokenDecimalsNr: decimals,
       marketCapDecimalsNr: currencyDecimals[marketcapCurrency],
@@ -88,6 +90,7 @@ export class LinearCurveV1Adapter extends AbstractCurveAdapter {
       curvePosition,
       coefB: BigInt(coefB),
     });
+    return BigInt(price.toFixed(0));
   }
 
   async getTokenAmountByCollateral(
