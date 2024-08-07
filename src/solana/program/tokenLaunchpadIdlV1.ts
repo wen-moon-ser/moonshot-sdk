@@ -261,6 +261,16 @@ export default {
           ],
         },
         {
+          name: 'dexFeeAccount',
+          isMut: true,
+          isSigner: false,
+        },
+        {
+          name: 'helioFeeAccount',
+          isMut: true,
+          isSigner: false,
+        },
+        {
           name: 'configAccount',
           isMut: false,
           isSigner: false,

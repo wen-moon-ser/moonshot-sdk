@@ -15,7 +15,7 @@ export abstract class AbstractCurveAdapter {
   ) {}
 
   /**
-   * @depriecated
+   * @deprecated
    * you can get the collateral price by using getCollateralAmountByTokens and provide 1 as an input
    * */
   abstract getCollateralPrice(
