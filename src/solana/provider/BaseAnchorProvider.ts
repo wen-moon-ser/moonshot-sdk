@@ -1,6 +1,6 @@
-import { ConfirmOptions, Connection, Keypair } from '@solana/web3.js';
+import { ConfirmOptions, Connection } from '@solana/web3.js';
 import * as anchor from '@coral-xyz/anchor';
-import { AnchorProvider as Provider, Program, Wallet } from '@coral-xyz/anchor';
+import { AnchorProvider as Provider, Program } from '@coral-xyz/anchor';
 
 export abstract class BaseAnchorProvider<T extends anchor.Idl> {
   private txOpts: ConfirmOptions = {
@@ -36,9 +36,7 @@ export abstract class BaseAnchorProvider<T extends anchor.Idl> {
   abstract get version(): string;
 
   private setProvider(): void {
-    const keypair = new Keypair();
-    const wallet = new Wallet(keypair);
-    const provider = new Provider(this._connection, wallet, this.txOpts);
+    const provider = new Provider(this._connection, {} as never, this.txOpts);
     anchor.setProvider(provider);
   }
 }

@@ -368,16 +368,17 @@
   resolved "https://registry.yarnpkg.com/@eslint/js/-/js-8.56.0.tgz#ef20350fec605a7f7035a01764731b2de0f3782b"
   integrity sha512-gMsVel9D7f2HLkBma9VbtzZRehRogVRfbr++f06nL2vnCGCNlzOD+/MUov/F4p8myyAHspEhVobgjpX64q5m6A==
 
-"@heliofi/launchpad-common@^0.0.23":
-  version "0.0.23"
-  resolved "https://registry.yarnpkg.com/@heliofi/launchpad-common/-/launchpad-common-0.0.23.tgz#48a5f57256d5303544b87cb33f2ad470644bcb6e"
-  integrity sha512-F/CywMUQ+ouFLPnN2wS3/+UTeGfXt56qegkTdNyIwhzEs76pY4THmSuZn2B/u77eZg76cJ5URIuA+Mz77yZwZg==
+"@heliofi/launchpad-common@1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@heliofi/launchpad-common/-/launchpad-common-1.0.3.tgz#4cf2bf27508d7cd81c567ec86fdcfc4914b28c7d"
+  integrity sha512-W9zDC6goUpEdM/JyGQaiin4x/tjsUj2ebnvMMV7gTf6ia1ofuuAW7X+InKiXpJLr2rEnbXsjqVatcB5Nz9iXqQ==
   dependencies:
     "@solana/web3.js" "^1.91.8"
     bignumber.js "9.1.1"
     bs58 "^5.0.0"
     class-transformer "^0.5.1"
     class-validator "^0.14.0"
+    reflect-metadata "^0.2.2"
 
 "@humanwhocodes/config-array@^0.11.13":
   version "0.11.14"
