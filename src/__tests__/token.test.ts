@@ -1,4 +1,3 @@
-import 'reflect-metadata';
 import { TradeDirection } from '@heliofi/launchpad-common';
 import { Environment, Moonshot, Token } from '../domain';
 

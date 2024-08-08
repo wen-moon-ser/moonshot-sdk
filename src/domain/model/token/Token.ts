@@ -1,4 +1,3 @@
-import 'reflect-metadata';
 import { InitTokenOptions } from './InitTokenOptions';
 import { Moonshot } from '../moonshot';
 import { PrepareTxOptions } from './PrepareTxOptions';
