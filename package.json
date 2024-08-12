@@ -1,6 +1,6 @@
 {
   "name": "@wen-moon-ser/moonshot-sdk",
-  "version": "2.0.2",
+  "version": "2.0.5",
   "main": "dist/index.js",
   "types": "dist/types/index.d.ts",
   "scripts": {
@@ -35,9 +35,9 @@
     "@heliofi/launchpad-common": "1.0.3",
     "@solana/spl-token": "0.3.9",
     "@solana/web3.js": "^1.68.0",
-    "@types/bn.js": "^5.1.5",
     "axios": "^1.7.2",
-    "bn.js": "^5.2.1"
+    "bn.js": "^5.2.1",
+    "@types/bn.js": "^5.1.5"
   },
   "eslintConfig": {
     "root": true,
