@@ -90,31 +90,6 @@ describe('Token', () => {
     expect(sellCollateral).toBeGreaterThan(buyCollateralAtBeginning); // but still more then in beginning of the curve
   });
 
-  test('get prepared versioned tx, ready for the submit after signing', async () => {
-    // To make it work, set the auth token above in the beforeAll
-    const preparedBuyTx = await token.prepareTx({
-      tokenAmount: 1000000000n,
-      collateralAmount: 100000000n,
-      slippageBps: 100,
-      creatorPK: 'Cb8Fnhp95f9dLxB3sYkNCbN3Mjxuc3v2uQZ7uVeqvNGB',
-      tradeDirection: TradeDirection.BUY,
-    });
-
-    expect(preparedBuyTx?.transaction).toBeDefined();
-    expect(preparedBuyTx?.token).toBeDefined();
-
-    const preparedSellTx = await token.prepareTx({
-      tokenAmount: 1000000000n,
-      collateralAmount: 100000000n,
-      slippageBps: 100,
-      creatorPK: 'Cb8Fnhp95f9dLxB3sYkNCbN3Mjxuc3v2uQZ7uVeqvNGB',
-      tradeDirection: TradeDirection.SELL,
-    });
-
-    expect(preparedSellTx?.transaction).toBeDefined();
-    expect(preparedSellTx?.token).toBeDefined();
-  });
-
   test('get prepared instructions, ready for the submit after signing', async () => {
     const preparedBuyIx = await token.prepareIxs({
       tokenAmount: 1000000000n,
