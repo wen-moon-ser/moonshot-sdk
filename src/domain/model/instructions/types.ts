@@ -1,4 +1,5 @@
 import { PublicKey } from '@solana/web3.js';
+import { FixedSide } from '../token';
 
 export type TradeRequest = {
   tokenAmount: bigint;
@@ -7,4 +8,5 @@ export type TradeRequest = {
   sender: PublicKey;
   curveAccount: PublicKey;
   mint: PublicKey;
+  fixedSide: FixedSide;
 };
