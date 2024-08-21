@@ -3,7 +3,8 @@ import { Environment, Moonshot, Token } from '../domain';
 
 describe('Token', () => {
   let moonshot: Moonshot;
-  const rpcUrl = 'https://api.mainnet-beta.solana.com';
+  const rpcUrl =
+    'https://rpc.helius.xyz/?api-key=4739a036-705f-48be-8704-1f5f2eff07fa';
   let token: Token;
   const minimalPrice = 10n;
 
