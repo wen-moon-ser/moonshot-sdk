@@ -1,3 +1,5 @@
 /src
 /.idea
 /node_modules
+.npmrc
+.env
