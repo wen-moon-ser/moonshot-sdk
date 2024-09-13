@@ -1,21 +1,23 @@
-import { Program } from '@coral-xyz/anchor';
 import { PublicKey } from '@solana/web3.js';
 import { TokenLaunchpadIdl } from '../program';
 import { CurveAccount } from '../../domain';
 import { convertBNtoBigInt } from './convertBNToBigInt';
 import { convertContractEnums } from './convertContractCurrency';
+import { BaseAnchorProvider } from '../provider';
 
 export async function getCurveAccount(
-  program: Program<TokenLaunchpadIdl>,
+  provider: BaseAnchorProvider<TokenLaunchpadIdl>,
   mintAddress: string,
 ): Promise<CurveAccount> {
   const [curveAccountKey] = PublicKey.findProgramAddressSync(
     [Buffer.from('token'), new PublicKey(mintAddress).toBytes()],
-    program.programId,
+    provider.program.programId,
   );
 
-  const curveAccount =
-    await program.account.curveAccount.fetch(curveAccountKey);
+  const curveAccount = await provider.program.account.curveAccount.fetch(
+    curveAccountKey,
+    provider.commitment,
+  );
 
   if (curveAccount == null) {
     throw new Error('Curve account data not found');

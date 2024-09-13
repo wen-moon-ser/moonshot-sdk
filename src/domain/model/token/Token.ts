@@ -32,13 +32,13 @@ export class Token {
     const curveAccount = await this.getCurveAccount();
     return getCurveAdapter(
       curveAccount,
-      this.moonshot.provider.program,
+      this.moonshot.provider,
       this.mintAddress,
     );
   }
 
   async getCurveAccount(): Promise<CurveAccount> {
-    return getCurveAccount(this.moonshot.provider.program, this.mintAddress);
+    return getCurveAccount(this.moonshot.provider, this.mintAddress);
   }
 
   /**
@@ -53,7 +53,7 @@ export class Token {
 
   async getCurvePosition(): Promise<bigint> {
     const curveState = await getCurveAccount(
-      this.moonshot.provider.program,
+      this.moonshot.provider,
       this.mintAddress,
     );
 
