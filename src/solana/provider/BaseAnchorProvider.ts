@@ -1,9 +1,9 @@
-import { ConfirmOptions, Connection } from '@solana/web3.js';
+import { Commitment, ConfirmOptions, Connection } from '@solana/web3.js';
 import * as anchor from '@coral-xyz/anchor';
 import { AnchorProvider as Provider, Program } from '@coral-xyz/anchor';
 
 export abstract class BaseAnchorProvider<T extends anchor.Idl> {
-  private txOpts: ConfirmOptions = {
+  private txOpts: ConfirmOptions & { commitment: Commitment } = {
     skipPreflight: false,
     commitment: 'confirmed',
     maxRetries: 5,
@@ -20,9 +20,13 @@ export abstract class BaseAnchorProvider<T extends anchor.Idl> {
     confirmOptions?: ConfirmOptions,
   ) {
     this.txOpts = { ...this.txOpts, ...confirmOptions };
-    this._connection = new Connection(connectionStr);
+    this._connection = new Connection(connectionStr, this.txOpts.commitment);
     this.setProvider();
     this._program = new Program<T>(this.IDL, this.PROGRAM_ID);
+  }
+
+  get commitment(): Commitment {
+    return this.txOpts.commitment;
   }
 
   get program(): Program<T> {

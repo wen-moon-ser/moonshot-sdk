@@ -4,13 +4,16 @@ import {
   GetTokenAmountOptions,
 } from '../token';
 import { CurveAccount } from './CurveAccount';
-import { Program } from '@coral-xyz/anchor';
-import { getCurveAccount, TokenLaunchpadIdl } from '../../../solana';
+import {
+  BaseAnchorProvider,
+  getCurveAccount,
+  TokenLaunchpadIdl,
+} from '../../../solana';
 import { calculateCurvePosition } from '../../../solana/utils/calculateCurvePosition';
 
 export abstract class AbstractCurveAdapter {
   constructor(
-    protected moonshotProgram: Program<TokenLaunchpadIdl>,
+    protected moonshotProgram: BaseAnchorProvider<TokenLaunchpadIdl>,
     protected mintAddress: string,
   ) {}
 
