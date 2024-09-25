@@ -1,6 +1,16 @@
 # moonshot-sdk
 
+https://www.npmjs.com/package/@wen-moon-ser/moonshot-sdk
+
 ## Direct RPC call prepare and send transaction
+
+Install the package using `yarn` or `npm`
+
+```shell
+npm i @wen-moon-ser/moonshot-sdk
+# or
+yarn add @wen-moon-ser/moonshot-sdk
+```
 
 
 Generate a keypair and send funds for the right environment (devnet or mainnet).
