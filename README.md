@@ -1,4 +1,4 @@
-# moonshot-sdk
+# @wen-moon-ser/moonshot-sdk
 
 Moonshot SDK for Solana helps calculate moonshot token prices at any point in the bonding curve. The package also allows the users to generate buy and sell transactions, provide the slippage amount and fix it to a trading side. 
 
