@@ -29,6 +29,10 @@ export abstract class AbstractCurveAdapter {
     options: GetCollateralAmountOptions,
   ): Promise<bigint>;
 
+  abstract getCollateralAmountByTokensSync(
+    options: GetCollateralAmountOptions & { curvePosition: bigint },
+  ): bigint;
+
   abstract getTokenAmountByCollateral(
     options: GetTokenAmountOptions,
   ): Promise<bigint>;

@@ -33,6 +33,19 @@ export class ConstantProductCurveV1Adapter extends AbstractCurveAdapter {
     });
   }
 
+  getCollateralAmountByTokensSync(
+    options: GetCollateralAmountOptions & { curvePosition: bigint },
+  ): bigint {
+    const curvePosition = options.curvePosition;
+
+    return this.curve.getCollateralAmountFromTokens({
+      amount: options.tokenAmount,
+      curvePosition,
+      platformFeeBps: this.platformFeeBps,
+      tradeDirection: options.tradeDirection,
+    });
+  }
+
   async getTokenAmountByCollateral(
     options: GetTokenAmountOptions,
   ): Promise<bigint> {

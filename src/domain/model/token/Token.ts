@@ -12,6 +12,7 @@ import { getBuyTx, getSellTx, TradeRequest } from '../instructions';
 import { CurveAccount, getCurveAdapter } from '../curve';
 import { AbstractCurveAdapter } from '../curve/AbstractCurveAdapter';
 import { FixedSide } from './FixedSide';
+import { GetCollateralAmountSyncOptions } from './GetCollateralAmountSyncOptions';
 
 export class Token {
   private moonshot: Moonshot;
@@ -25,7 +26,7 @@ export class Token {
     this.mintAddress = options.mintAddress;
   }
 
-  private async curveAdapter(): Promise<AbstractCurveAdapter> {
+  async curveAdapter(): Promise<AbstractCurveAdapter> {
     if (this._curveAdapter != null) {
       return this._curveAdapter;
     }
@@ -73,6 +74,12 @@ export class Token {
     options: GetCollateralAmountOptions,
   ): Promise<bigint> {
     return (await this.curveAdapter()).getCollateralAmountByTokens(options);
+  }
+
+  getCollateralAmountByTokensSync(
+    options: GetCollateralAmountSyncOptions & { curvePosition: bigint },
+  ): bigint {
+    return options.curveAdapter.getCollateralAmountByTokensSync(options);
   }
 
   async prepareIxs(
