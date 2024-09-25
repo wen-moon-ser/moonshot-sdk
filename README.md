@@ -1,8 +1,12 @@
 # moonshot-sdk
 
-https://www.npmjs.com/package/@wen-moon-ser/moonshot-sdk
+Moonshot SDK for Solana helps calculate moonshot token prices at any point in the bonding curve. The package also allows the users to generate buy and sell transactions, provide the slippage amount and fix it to a trading side. 
 
-## Direct RPC call prepare and send transaction
+By Following the example you can create your high-performance trading bot within minutes.
+
+[npm link](https://www.npmjs.com/package/@wen-moon-ser/moonshot-sdk)
+
+## Installation
 
 Install the package using `yarn` or `npm`
 
@@ -12,6 +16,7 @@ npm i @wen-moon-ser/moonshot-sdk
 yarn add @wen-moon-ser/moonshot-sdk
 ```
 
+## Direct RPC call prepare and send transaction
 
 Generate a keypair and send funds for the right environment (devnet or mainnet).
 
