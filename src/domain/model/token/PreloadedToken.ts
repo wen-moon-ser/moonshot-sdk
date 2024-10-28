@@ -9,8 +9,8 @@ import { ITokenPreloadedOperations } from './ITokenPreloadedOperations';
 import { BaseToken } from './BaseToken';
 
 /**
- * PreloadedToken extends Token class in its functionality
- * And allows synchronous
+ * PreloadedToken extends BaseToken class in its functionality
+ * And allows synchronous functions
  * This helps to avoid async calls even when the curve position is known
  * */
 export class PreloadedToken
