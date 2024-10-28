@@ -97,6 +97,10 @@ export class LinearCurveV1Adapter extends AbstractCurveAdapter {
     throw new Error('Method not supported for this curve type.');
   }
 
+  getTokenAmountByCollateralSync(): bigint {
+    throw new Error('Method not implemented.');
+  }
+
   async getTokenAmountByCollateral(
     options: GetTokenAmountOptions,
   ): Promise<bigint> {

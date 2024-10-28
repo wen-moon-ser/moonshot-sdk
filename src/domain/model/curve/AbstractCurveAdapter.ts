@@ -10,6 +10,8 @@ import {
   TokenLaunchpadIdl,
 } from '../../../solana';
 import { calculateCurvePosition } from '../../../solana/utils/calculateCurvePosition';
+import { GetCollateralAmountSyncOptions } from '../token/GetCollateralAmountSyncOptions';
+import { GetTokenAmountSyncOptions } from '../token/GetTokenAmountSyncOptions';
 
 export abstract class AbstractCurveAdapter {
   constructor(
@@ -30,12 +32,16 @@ export abstract class AbstractCurveAdapter {
   ): Promise<bigint>;
 
   abstract getCollateralAmountByTokensSync(
-    options: GetCollateralAmountOptions & { curvePosition: bigint },
+    options: GetCollateralAmountSyncOptions,
   ): bigint;
 
   abstract getTokenAmountByCollateral(
     options: GetTokenAmountOptions,
   ): Promise<bigint>;
+
+  abstract getTokenAmountByCollateralSync(
+    options: GetTokenAmountSyncOptions,
+  ): bigint;
 
   async getCurveAccount(): Promise<CurveAccount> {
     return getCurveAccount(this.moonshotProgram, this.mintAddress);

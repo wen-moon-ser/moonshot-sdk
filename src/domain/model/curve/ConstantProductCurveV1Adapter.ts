@@ -3,8 +3,10 @@ import {
   GetCollateralAmountOptions,
   GetTokenAmountOptions,
 } from '../token';
+import { GetTokenAmountSyncOptions } from '../token/GetTokenAmountSyncOptions';
 import { AbstractCurveAdapter } from './AbstractCurveAdapter';
 import { ConstantProductCurveV1 } from '@heliofi/launchpad-common';
+import { GetCollateralAmountSyncOptions } from '../token/GetCollateralAmountSyncOptions';
 
 export class ConstantProductCurveV1Adapter extends AbstractCurveAdapter {
   private readonly platformFeeBps: number = 100;
@@ -34,7 +36,7 @@ export class ConstantProductCurveV1Adapter extends AbstractCurveAdapter {
   }
 
   getCollateralAmountByTokensSync(
-    options: GetCollateralAmountOptions & { curvePosition: bigint },
+    options: GetCollateralAmountSyncOptions,
   ): bigint {
     const curvePosition = options.curvePosition;
 
@@ -51,6 +53,17 @@ export class ConstantProductCurveV1Adapter extends AbstractCurveAdapter {
   ): Promise<bigint> {
     const curvePosition =
       options.curvePosition ?? (await this.getCurvePosition());
+
+    return this.curve.getTokensAmountFromCollateral({
+      amount: options.collateralAmount,
+      curvePosition,
+      platformFeeBps: this.platformFeeBps,
+      tradeDirection: options.tradeDirection,
+    });
+  }
+
+  getTokenAmountByCollateralSync(options: GetTokenAmountSyncOptions): bigint {
+    const curvePosition = options.curvePosition;
 
     return this.curve.getTokensAmountFromCollateral({
       amount: options.collateralAmount,
