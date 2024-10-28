@@ -33,7 +33,7 @@ export const buyIx = async (): Promise<void> => {
   });
 
   const token = moonshot.Token({
-    mintAddress: '3Rai792zaN5adyc2oEFGg1JLV4S9SYi51HrtMw7qRz8o',
+    mintAddress: '9ThH8ayxFCFZqssoZmodgvtbTiBmMoLWUqQhRAP89Y97',
   });
 
   const curvePos = await token.getCurvePosition();
@@ -111,7 +111,7 @@ export const sellIx = async (): Promise<void> => {
   });
 
   const token = moonshot.Token({
-    mintAddress: '3Rai792zaN5adyc2oEFGg1JLV4S9SYi51HrtMw7qRz8o',
+    mintAddress: '9ThH8ayxFCFZqssoZmodgvtbTiBmMoLWUqQhRAP89Y97',
   });
 
   const curvePos = await token.getCurvePosition();
