@@ -368,10 +368,10 @@
   resolved "https://registry.yarnpkg.com/@eslint/js/-/js-8.56.0.tgz#ef20350fec605a7f7035a01764731b2de0f3782b"
   integrity sha512-gMsVel9D7f2HLkBma9VbtzZRehRogVRfbr++f06nL2vnCGCNlzOD+/MUov/F4p8myyAHspEhVobgjpX64q5m6A==
 
-"@heliofi/launchpad-common@1.0.3":
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/@heliofi/launchpad-common/-/launchpad-common-1.0.3.tgz#4cf2bf27508d7cd81c567ec86fdcfc4914b28c7d"
-  integrity sha512-W9zDC6goUpEdM/JyGQaiin4x/tjsUj2ebnvMMV7gTf6ia1ofuuAW7X+InKiXpJLr2rEnbXsjqVatcB5Nz9iXqQ==
+"@heliofi/launchpad-common@1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@heliofi/launchpad-common/-/launchpad-common-1.1.2.tgz#9323edf8d869411310502fd6aec66fd1d16ef618"
+  integrity sha512-m9Z0pAR9KjBuox/PjnXztEC5zO4stFvhBxVGkDbLwLlkpn87EDf2jKLOKXWBUEaClYcECXYoCKhUa2mbBaYA7A==
   dependencies:
     "@solana/web3.js" "^1.91.8"
     bignumber.js "9.1.1"
@@ -1745,6 +1745,11 @@ dot-case@^3.0.4:
   dependencies:
     no-case "^3.0.4"
     tslib "^2.0.3"
+
+dotenv@^16.4.5:
+  version "16.4.5"
+  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-16.4.5.tgz#cdd3b3b604cb327e286b4762e13502f717cb099f"
+  integrity sha512-ZmdL2rui+eB2YwhsWzjInR8LldtZHGDoQ1ugH85ppHKwpUHL7j7rN0Ti9NCnGiQbhaZ11FpR+7ao1dNsmduNUg==
 
 electron-to-chromium@^1.4.796:
   version "1.4.812"
