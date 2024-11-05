@@ -69,4 +69,8 @@ export interface MintTokenPrepareV1Request {
    * @optional
    */
   banner?: string;
+
+  affiliate?: {
+    wallet: string; // Base58 wallet public key of affiliate
+  };
 }

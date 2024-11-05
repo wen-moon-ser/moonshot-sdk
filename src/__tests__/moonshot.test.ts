@@ -57,7 +57,10 @@ describe('Moonshot', () => {
       description: 'TEST_TOKEN',
       links: [{ url: 'https://x.com', label: 'x handle' }],
       banner: img,
-      tokenAmount: '10000000000',
+      tokenAmount: '42000000000',
+      affiliate: {
+        wallet: creator.publicKey.toBase58(),
+      },
     });
 
     const deserializedTransaction =
