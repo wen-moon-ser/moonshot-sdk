@@ -12,4 +12,6 @@ export interface CurveAccount {
   migrationFee: bigint;
   coefB: number;
   bump: number;
+  migrationTarget: number;
+  priceIncrease: number;
 }

@@ -70,4 +70,15 @@ export interface PrepareMintTxOptions {
   affiliate?: {
     wallet: string;
   };
+
+  /**
+   * Percentage increase in price after migration, only for flat curve
+   */
+
+  priceIncrease?: number;
+
+  /**
+   * Amount of collateral collected before migration, only for flat curve
+   */
+  collateralCollected?: string;
 }

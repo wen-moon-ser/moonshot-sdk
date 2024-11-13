@@ -5,4 +5,6 @@ export interface InitTokenOptions {
   mintAddress: string;
   moonshot: Moonshot;
   curveType?: CurveType;
+  collateralCollected?: bigint;
+  priceIncrease?: number;
 }
