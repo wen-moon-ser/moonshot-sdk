@@ -42,6 +42,8 @@ export class PreloadedToken
       curveAccount,
       options.moonshot.provider,
       options.mintAddress,
+      options.collateralCollected,
+      options.priceIncrease,
     );
     return new PreloadedToken(options, curveAdapter);
   }
