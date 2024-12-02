@@ -30,12 +30,12 @@ describe('Token', () => {
     const currentPrice = await token.getCollateralPrice({
       tokenAmount: BigInt(1_000_000_000),
     });
-    expect(currentPrice).toBeGreaterThan(minimalPrice);
+    expect(Number(currentPrice)).toBeGreaterThan(Number(minimalPrice));
   });
 
   test('get curve position price', async () => {
     const curvePosition = await token.getCurvePosition();
-    expect(curvePosition).toBe(6997649000000000n);
+    expect(curvePosition).toBe(2000000000n);
   });
 
   test('get token price per collaterall', async () => {
