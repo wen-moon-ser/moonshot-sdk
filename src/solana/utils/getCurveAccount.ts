@@ -14,10 +14,12 @@ export async function getCurveAccount(
     provider.program.programId,
   );
 
-  const curveAccount = await provider.program.account.curveAccount.fetch(
-    curveAccountKey,
-    provider.commitment,
-  );
+  const curveAccount =
+    await // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (provider.program.account as any).curveAccount.fetch(
+      curveAccountKey,
+      provider.commitment,
+    );
 
   if (curveAccount == null) {
     throw new Error('Curve account data not found');
