@@ -24,6 +24,7 @@ describe('Moonshot', () => {
     creator = Keypair.fromSecretKey(
       Uint8Array.from(JSON.parse(testWallet as string)),
     );
+    console.log('Creator wallet', creator.publicKey.toBase58());
   });
 
   it('should prepare a token mint', async () => {
