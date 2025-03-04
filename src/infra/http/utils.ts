@@ -2,10 +2,6 @@ import axios, { AxiosHeaders, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { NoContent } from './NoContent';
 import { ResponseError } from './ResponseError';
 
-type ErrorMessage = {
-  message: string;
-};
-
 export type FetchOptions = RequestInit & {
   clearContentType?: boolean;
 };

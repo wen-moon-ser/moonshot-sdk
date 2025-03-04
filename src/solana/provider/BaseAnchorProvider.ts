@@ -41,6 +41,8 @@ export abstract class BaseAnchorProvider<T extends anchor.Idl> {
 
   private setProvider(): void {
     const provider = new Provider(
+      // Anchor @solana/web3.js version mismatch
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       this._connection as any,
       {} as never,
       this.txOpts,
