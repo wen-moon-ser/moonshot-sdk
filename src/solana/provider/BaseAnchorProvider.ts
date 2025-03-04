@@ -22,7 +22,7 @@ export abstract class BaseAnchorProvider<T extends anchor.Idl> {
     this.txOpts = { ...this.txOpts, ...confirmOptions };
     this._connection = new Connection(connectionStr, this.txOpts.commitment);
     this.setProvider();
-    this._program = new Program<T>(this.IDL);
+    this._program = new Program<T>(this.IDL, this.PROGRAM_ID);
   }
 
   get commitment(): Commitment {
@@ -40,7 +40,11 @@ export abstract class BaseAnchorProvider<T extends anchor.Idl> {
   abstract get version(): string;
 
   private setProvider(): void {
-    const provider = new Provider(this._connection, {} as never, this.txOpts);
+    const provider = new Provider(
+      this._connection as any,
+      {} as never,
+      this.txOpts,
+    );
     anchor.setProvider(provider);
   }
 }

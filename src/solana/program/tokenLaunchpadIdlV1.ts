@@ -1,4 +1,5 @@
-export const IDL_V4 = {
+// @deprecated - OLD IDL please use the latest version in this folder
+export default {
   version: '0.1.0',
   name: 'token_launchpad',
   instructions: [
@@ -384,7 +385,7 @@ export const IDL_V4 = {
             type: 'u64',
           },
           {
-            name: 'linearCurveMcapThreshold',
+            name: 'marketcapThreshold',
             type: 'u64',
           },
           {
@@ -416,14 +417,6 @@ export const IDL_V4 = {
           {
             name: 'coefB',
             type: 'u32',
-          },
-          {
-            name: 'constantProductV1McapThreshold',
-            type: 'u64',
-          },
-          {
-            name: 'constantProductV2McapThreshold',
-            type: 'u64',
           },
         ],
       },
@@ -489,70 +482,71 @@ export const IDL_V4 = {
               defined: 'MigrationTarget',
             },
           },
-          {
-            name: 'priceIncrease',
-            type: 'u16',
-          },
         ],
       },
     },
   ],
   types: [
     {
-      name: 'Currency',
+      name: 'TokenMintParams',
       type: {
-        kind: 'enum',
-        variants: [
+        kind: 'struct',
+        fields: [
           {
-            name: 'Sol',
+            name: 'name',
+            type: 'string',
+          },
+          {
+            name: 'symbol',
+            type: 'string',
+          },
+          {
+            name: 'uri',
+            type: 'string',
+          },
+          {
+            name: 'decimals',
+            type: 'u8',
+          },
+          {
+            name: 'collateralCurrency',
+            type: 'u8',
+          },
+          {
+            name: 'amount',
+            type: 'u64',
+          },
+          {
+            name: 'curveType',
+            type: 'u8',
+          },
+          {
+            name: 'migrationTarget',
+            type: 'u8',
           },
         ],
       },
     },
     {
-      name: 'CurveType',
+      name: 'TradeParams',
       type: {
-        kind: 'enum',
-        variants: [
+        kind: 'struct',
+        fields: [
           {
-            name: 'LinearV1',
+            name: 'tokenAmount',
+            type: 'u64',
           },
           {
-            name: 'ConstantProductV1',
+            name: 'collateralAmount',
+            type: 'u64',
           },
           {
-            name: 'ConstantProductV2',
+            name: 'fixedSide',
+            type: 'u8',
           },
           {
-            name: 'FlatCurveV1',
-          },
-        ],
-      },
-    },
-    {
-      name: 'MigrationTarget',
-      type: {
-        kind: 'enum',
-        variants: [
-          {
-            name: 'Raydium',
-          },
-          {
-            name: 'Meteora',
-          },
-        ],
-      },
-    },
-    {
-      name: 'TradeType',
-      type: {
-        kind: 'enum',
-        variants: [
-          {
-            name: 'Buy',
-          },
-          {
-            name: 'Sell',
+            name: 'slippageBps',
+            type: 'u64',
           },
         ],
       },
@@ -611,7 +605,7 @@ export const IDL_V4 = {
             },
           },
           {
-            name: 'linearCurveMcapThreshold',
+            name: 'marketcapThreshold',
             type: {
               option: 'u64',
             },
@@ -652,125 +646,78 @@ export const IDL_V4 = {
               option: 'u32',
             },
           },
+        ],
+      },
+    },
+    {
+      name: 'Currency',
+      type: {
+        kind: 'enum',
+        variants: [
           {
-            name: 'constantProductV1McapThreshold',
-            type: {
-              option: 'u64',
-            },
-          },
-          {
-            name: 'constantProductV2McapThreshold',
-            type: {
-              option: 'u64',
-            },
+            name: 'Sol',
           },
         ],
       },
     },
     {
-      name: 'TokenMintParams',
+      name: 'CurveType',
       type: {
-        kind: 'struct',
-        fields: [
+        kind: 'enum',
+        variants: [
           {
-            name: 'name',
-            type: 'string',
+            name: 'LinearV1',
           },
           {
-            name: 'symbol',
-            type: 'string',
-          },
-          {
-            name: 'uri',
-            type: 'string',
-          },
-          {
-            name: 'decimals',
-            type: 'u8',
-          },
-          {
-            name: 'collateralCurrency',
-            type: 'u8',
-          },
-          {
-            name: 'amount',
-            type: 'u64',
-          },
-          {
-            name: 'curveType',
-            type: 'u8',
-          },
-          {
-            name: 'migrationTarget',
-            type: 'u8',
-          },
-          {
-            name: 'priceIncrease',
-            type: 'u16',
-          },
-          {
-            name: 'collateralCollected',
-            type: 'u64',
+            name: 'ConstantProductV1',
           },
         ],
       },
     },
     {
-      name: 'TradeParams',
+      name: 'MigrationTarget',
       type: {
-        kind: 'struct',
-        fields: [
+        kind: 'enum',
+        variants: [
           {
-            name: 'tokenAmount',
-            type: 'u64',
+            name: 'Raydium',
           },
           {
-            name: 'collateralAmount',
-            type: 'u64',
+            name: 'Meteora',
+          },
+        ],
+      },
+    },
+    {
+      name: 'TradeType',
+      type: {
+        kind: 'enum',
+        variants: [
+          {
+            name: 'Buy',
           },
           {
-            name: 'fixedSide',
-            type: 'u8',
+            name: 'Sell',
+          },
+        ],
+      },
+    },
+    {
+      name: 'FixedSide',
+      type: {
+        kind: 'enum',
+        variants: [
+          {
+            name: 'ExactIn',
           },
           {
-            name: 'slippageBps',
-            type: 'u64',
+            name: 'ExactOut',
           },
         ],
       },
     },
   ],
   events: [
-    {
-      name: 'MigrationEvent',
-      fields: [
-        {
-          name: 'tokensMigrated',
-          type: 'u64',
-          index: false,
-        },
-        {
-          name: 'tokensBurned',
-          type: 'u64',
-          index: false,
-        },
-        {
-          name: 'collateralMigrated',
-          type: 'u64',
-          index: false,
-        },
-        {
-          name: 'fee',
-          type: 'u64',
-          index: false,
-        },
-        {
-          name: 'label',
-          type: 'string',
-          index: true,
-        },
-      ],
-    },
     {
       name: 'TradeEvent',
       fields: [
@@ -819,6 +766,36 @@ export const IDL_V4 = {
           type: {
             defined: 'TradeType',
           },
+          index: false,
+        },
+        {
+          name: 'label',
+          type: 'string',
+          index: true,
+        },
+      ],
+    },
+    {
+      name: 'MigrationEvent',
+      fields: [
+        {
+          name: 'tokensMigrated',
+          type: 'u64',
+          index: false,
+        },
+        {
+          name: 'tokensBurned',
+          type: 'u64',
+          index: false,
+        },
+        {
+          name: 'collateralMigrated',
+          type: 'u64',
+          index: false,
+        },
+        {
+          name: 'fee',
+          type: 'u64',
           index: false,
         },
         {

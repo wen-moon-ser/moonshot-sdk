@@ -1,17 +1,17 @@
+import 'dotenv/config';
 import { Environment, Moonshot, Token } from '../domain';
 
 describe('Curve account', () => {
-  const mintAddress = 'AhaAKM3dUKAeYoZCTXF8fqqbjcvugbgEmst6557jkZ9h';
   let moonshot: Moonshot;
-  const rpcUrl =
-    'https://rpc.helius.xyz/?api-key=4739a036-705f-48be-8704-1f5f2eff07fa';
+  const rpcUrl = process.env.RPC_URL as string;
+  const mintAddress = process.env.TEST_MINT_ADDRESS as string;
+
   let token: Token;
 
   beforeAll(() => {
     moonshot = new Moonshot({
       rpcUrl,
-      authToken: 'YOUR_AUTH_TOKEN',
-      environment: Environment.MAINNET,
+      environment: Environment.DEVNET,
     });
 
     token = moonshot.Token({
@@ -23,7 +23,7 @@ describe('Curve account', () => {
     const account = await token.getCurveAccount();
     expect(account).toBeDefined();
 
-    expect(account.curveType).toBe(0);
+    expect(account.curveType).toBe(1);
     expect(String(account.mint)).toBe(mintAddress);
   });
 });
