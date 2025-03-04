@@ -21,10 +21,10 @@ export interface PrepareMintTxOptions {
 
   /**
    * Type of curve to use for token pricing
-   * Currently only CONSTANT_PRODUCT_V1 is supported
+   * Currently only CONSTANT_PRODUCT_V1 and FLAT_V1 are supported
    * LINEAR_V1 is a legacy curve
    */
-  curveType: CurveType.CONSTANT_PRODUCT_V1;
+  curveType: CurveType.CONSTANT_PRODUCT_V1 | CurveType.FLAT_V1;
 
   /**
    * DEX to use for token migration

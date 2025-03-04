@@ -18,17 +18,11 @@ export class BaseToken {
 
   protected readonly mintAddress: string;
 
-  protected collateralCollected?: bigint;
-
-  protected priceIncrease?: number;
-
   protected _curveAdapter?: AbstractCurveAdapter;
 
   constructor(options: InitTokenOptions) {
     this.moonshot = options.moonshot;
     this.mintAddress = options.mintAddress;
-    this.collateralCollected = options.collateralCollected;
-    this.priceIncrease = options.priceIncrease;
   }
 
   protected async curveAdapter(): Promise<AbstractCurveAdapter> {
@@ -40,8 +34,6 @@ export class BaseToken {
       curveAccount,
       this.moonshot.provider,
       this.mintAddress,
-      this.collateralCollected,
-      this.priceIncrease,
     );
   }
 
@@ -49,10 +41,6 @@ export class BaseToken {
     return getCurveAccount(this.moonshot.provider, this.mintAddress);
   }
 
-  /**
-   * @deprecated
-   * Please use getTokenAmountByCollateral instead
-   * */
   async getCollateralPrice(
     options: GetCollateralPriceOptions,
   ): Promise<bigint> {

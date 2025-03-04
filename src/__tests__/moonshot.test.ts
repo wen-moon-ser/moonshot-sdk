@@ -86,4 +86,46 @@ describe('Moonshot', () => {
     expect(res.txSignature).toBeDefined();
     expect(res.status).toBe(TxStatus.SUCCESS);
   });
+
+  it.skip('should mint on flat curve', async () => {
+    const prepMint = await moonshot.prepareMintTx({
+      creator: creator.publicKey.toBase58(),
+      name: 'TEST_TOKEN',
+      symbol: 'TEST_TOKEN',
+      curveType: CurveType.FLAT_V1,
+      migrationDex: MigrationDex.RAYDIUM,
+      icon: mockImg,
+      description: 'TEST_TOKEN',
+      links: [{ url: 'https://x.com', label: 'x handle' }],
+      banner: mockImg,
+      tokenAmount: '42000000000',
+      affiliate: {
+        wallet: creator.publicKey.toBase58(),
+      },
+    });
+
+    const deserializedTransaction =
+      SolanaSerializationService.deserializeVersionedTransaction(
+        prepMint.transaction,
+      );
+    if (deserializedTransaction == null) {
+      throw new Error('Failed to deserialize transaction');
+    }
+
+    deserializedTransaction.sign([creator]);
+
+    const signedTransaction =
+      SolanaSerializationService.serializeVersionedTransaction(
+        deserializedTransaction,
+      );
+
+    const res = await moonshot.submitMintTx({
+      tokenId: prepMint.tokenId,
+      token: prepMint.token,
+      signedTransaction,
+    });
+
+    expect(res.txSignature).toBeDefined();
+    expect(res.status).toBe(TxStatus.SUCCESS);
+  });
 });

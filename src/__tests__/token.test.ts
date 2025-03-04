@@ -14,7 +14,7 @@ describe('Token', () => {
   beforeAll(() => {
     moonshot = new Moonshot({
       rpcUrl,
-      environment: Environment.MAINNET,
+      environment: Environment.DEVNET,
     });
 
     token = moonshot.Token({

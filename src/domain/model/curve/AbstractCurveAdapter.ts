@@ -19,10 +19,6 @@ export abstract class AbstractCurveAdapter {
     protected mintAddress: string,
   ) {}
 
-  /**
-   * @deprecated
-   * you can get the collateral price by using getCollateralAmountByTokens and provide 1 as an input
-   * */
   abstract getCollateralPrice(
     options: GetCollateralPriceOptions,
   ): Promise<bigint>;

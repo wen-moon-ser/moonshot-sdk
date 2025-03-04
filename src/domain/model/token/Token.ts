@@ -10,8 +10,6 @@ export class Token extends BaseToken {
     return PreloadedToken.init({
       mintAddress: this.mintAddress,
       moonshot: this.moonshot,
-      collateralCollected: this.collateralCollected,
-      priceIncrease: this.priceIncrease,
     });
   }
 }

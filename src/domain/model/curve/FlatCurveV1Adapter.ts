@@ -19,10 +19,9 @@ export class FlatCurveV1Adapter extends AbstractCurveAdapter {
     moonshotProgram: BaseAnchorProvider<TokenLaunchpadIdl>,
     mintAddress: string,
     collateralCollected: bigint,
-    priceIncrease?: number,
   ) {
     super(moonshotProgram, mintAddress);
-    this.curve = new FlatCurveV1(collateralCollected, priceIncrease);
+    this.curve = new FlatCurveV1(collateralCollected);
   }
 
   getCollateralPrice(options: GetCollateralPriceOptions): Promise<bigint> {

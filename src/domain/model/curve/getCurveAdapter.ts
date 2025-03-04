@@ -11,8 +11,6 @@ export const getCurveAdapter = (
   curveAccount: CurveAccount,
   programProvider: BaseAnchorProvider<TokenLaunchpadIdl>,
   mintAddress: string,
-  collateralCollected?: bigint,
-  priceIncrease?: number,
 ): AbstractCurveAdapter => {
   switch (curveAccount.curveType) {
     case ContractCurveType.CONSTANT_PRODUCT_V1:
@@ -22,14 +20,10 @@ export const getCurveAdapter = (
     case ContractCurveType.LINEAR_V1:
       return new LinearCurveV1Adapter(programProvider, mintAddress);
     case ContractCurveType.FLAT_V1:
-      if (!collateralCollected) {
-        throw new Error('Collateral collected is required for flat curve');
-      }
       return new FlatCurveV1Adapter(
         programProvider,
         mintAddress,
-        collateralCollected,
-        priceIncrease,
+        curveAccount.marketcapThreshold,
       );
     default:
       throw new Error('Unsupported curve type');
