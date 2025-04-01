@@ -38,13 +38,18 @@ export class Moonshot {
   async prepareMintTx(
     options: PrepareMintTxOptions,
   ): Promise<PrepareMintTxResponse> {
-    const res = await this.apiAdapter.prepareMint({
+    const createMintRes = await this.apiAdapter.createMint({
       ...options,
-      creatorId: options.creator,
     });
+
+    const res = await this.apiAdapter.prepareMint(createMintRes.pairId, {
+      amount: options.tokenAmount,
+      creatorPK: options.creator,
+    });
+
     return {
       token: res.token,
-      tokenId: res.draftTokenId,
+      tokenId: createMintRes.pairId,
       transaction: res.transaction,
     };
   }
@@ -52,9 +57,9 @@ export class Moonshot {
   async submitMintTx(
     options: SubmitMintTxOptions,
   ): Promise<SubmitMintTxResponse> {
-    const res = await this.apiAdapter.submitMint(options.tokenId, options);
+    const res = await this.apiAdapter.submitMint(options);
     return {
-      txSignature: res.txnId,
+      txSignature: res.transactionSignature,
       status: res.status,
     };
   }

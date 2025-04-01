@@ -9,5 +9,5 @@ export interface SubmitMintTxResponse {
   /**
    * Status of the transaction
    */
-  status: TxStatus.SUCCESS | TxStatus.FAILED | TxStatus.PENDING;
+  status: TxStatus;
 }
