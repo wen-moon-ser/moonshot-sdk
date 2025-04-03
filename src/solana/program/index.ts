@@ -1,12 +1,8 @@
 import { Idl } from '@coral-xyz/anchor';
 import { PublicKey } from '@solana/web3.js';
-import idl from './tokenLaunchpadIdlV1';
+import { IDL_V4 } from './tokenLaunchpadIdlV4';
 
-export const programId = new PublicKey(idl.metadata.address);
-export const tokenLaunchpadIdlV1 = idl as TokenLaunchpadIdl;
+export const programId = new PublicKey(IDL_V4.metadata.address);
+export const tokenLaunchpadIdlV4 = IDL_V4 as TokenLaunchpadIdl;
 
-export type TokenLaunchpadIdl = Idl & {
-  metadata: {
-    address: string;
-  };
-};
+export type TokenLaunchpadIdl = Idl;

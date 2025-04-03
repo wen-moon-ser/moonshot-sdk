@@ -28,12 +28,19 @@ export function convertContractEnums(curveAccount: CurveAccount): CurveAccount {
   if (keys.length === 0) {
     throw new Error(`Curve type is missing`);
   }
+
   switch (keys[0].toLowerCase()) {
     case 'linearv1':
       curveAccount.curveType = ContractCurveType.LINEAR_V1;
       break;
     case 'constantproductv1':
       curveAccount.curveType = ContractCurveType.CONSTANT_PRODUCT_V1;
+      break;
+    case 'constantproductv2':
+      curveAccount.curveType = ContractCurveType.CONSTANT_PRODUCT_V2;
+      break;
+    case 'flatcurvev1':
+      curveAccount.curveType = ContractCurveType.FLAT_V1;
       break;
     default:
       throw new Error(`Unknown curve type: ${curveAccount.curveType}`);

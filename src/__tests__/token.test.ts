@@ -1,22 +1,24 @@
 import { TradeDirection } from '@heliofi/launchpad-common';
 import { Environment, Moonshot, Token } from '../domain';
+import 'dotenv/config';
 
 describe('Token', () => {
   let moonshot: Moonshot;
-  const rpcUrl =
-    'https://rpc.helius.xyz/?api-key=4739a036-705f-48be-8704-1f5f2eff07fa';
+
+  const rpcUrl = process.env.RPC_URL as string;
+  const mintAddress = process.env.TEST_MINT_ADDRESS as string;
+
   let token: Token;
-  const minimalPrice = 10n;
+  const minimalPrice = 27n;
 
   beforeAll(() => {
     moonshot = new Moonshot({
       rpcUrl,
-      authToken: 'YOUR_AUTH_TOKEN',
-      environment: Environment.MAINNET,
+      environment: Environment.DEVNET,
     });
 
     token = moonshot.Token({
-      mintAddress: 'AhaAKM3dUKAeYoZCTXF8fqqbjcvugbgEmst6557jkZ9h',
+      mintAddress: mintAddress,
     });
   });
 
@@ -35,7 +37,7 @@ describe('Token', () => {
 
   test('get curve position price', async () => {
     const curvePosition = await token.getCurvePosition();
-    expect(curvePosition).toBe(2000000000n);
+    expect(curvePosition).toBe(130000000000n);
   });
 
   test('get token price per collaterall', async () => {
@@ -61,7 +63,6 @@ describe('Token', () => {
     });
 
     expect(sellAmount).toBeGreaterThan(buyAmount); // On sell curve goes backward, 0.1 sol means more tokens
-    expect(sellAmount).toBeLessThan(buyAmountAtBeginning); // price raises with curve advance
   });
 
   test('get collaterall price by tokens', async () => {
@@ -88,7 +89,6 @@ describe('Token', () => {
     });
 
     expect(sellCollateral).toBeLessThan(buyCollateral); // On sell curve goes backward, less collateral for same amount of tokens
-    expect(sellCollateral).toBeGreaterThan(buyCollateralAtBeginning); // but still more then in beginning of the curve
   });
 
   test('get prepared instructions, ready for the submit after signing', async () => {

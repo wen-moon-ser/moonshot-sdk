@@ -41,10 +41,6 @@ export class BaseToken {
     return getCurveAccount(this.moonshot.provider, this.mintAddress);
   }
 
-  /**
-   * @deprecated
-   * Please use getTokenAmountByCollateral instead
-   * */
   async getCollateralPrice(
     options: GetCollateralPriceOptions,
   ): Promise<bigint> {

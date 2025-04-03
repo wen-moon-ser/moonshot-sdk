@@ -1,10 +1,15 @@
 import { Environment } from '../../domain';
 import { ApiClient } from '../http';
-import { MintTokenPrepareV1Request } from './MintTokenPrepareV1Request';
-import { MintTokenPrepareV1Response } from './MintTokenPrepareV1Response';
-import { MintTokenSubmitV1Request } from './MintTokenSubmitV1Request';
-import { MintTokenSubmitV1Response } from './MintTokenSubmitV1Response';
-import { MoonshotApiChainId } from './MoonshotApiChainId';
+import {
+  CreateMintResponse,
+  CreateMintWithMetadataDto,
+  MintTxPrepareDto,
+  MintTxPrepareResponse,
+  MintTxSubmitDto,
+  MintTxSubmitResponse,
+} from '@heliofi/launchpad-common';
+import { PrepareMintTxOptions } from '../../domain/model/moonshot/PrepareMintTxOptions';
+import { extractLinks } from '../../solana/utils/extractSocialLinks';
 
 export class MoonshotApiAdapter {
   private apiClient: ApiClient;
@@ -15,37 +20,58 @@ export class MoonshotApiAdapter {
   ) {
     const apiBasePath =
       env === Environment.MAINNET
-        ? 'https://api.moonshot.cc'
-        : 'https://api-devnet.moonshot.cc';
+        ? 'https://api.mintlp.io/v1'
+        : 'https://api.dev.mintlp.io/v1';
     this.apiClient = new ApiClient({ apiBasePath });
   }
 
-  async prepareMint(
-    prepareBuyDto: Omit<MintTokenPrepareV1Request, 'chainId'>,
-  ): Promise<MintTokenPrepareV1Response> {
-    return this.apiClient.authedRequest(`/tokens/v1`, this.token, {
-      method: 'POST',
-      data: {
-        ...prepareBuyDto,
-        chainId:
-          this.env === Environment.MAINNET
-            ? MoonshotApiChainId.SOLANA_MAINNET
-            : MoonshotApiChainId.SOLANA_DEVNET,
-      },
-    });
-  }
+  async createMint(
+    prepareBuyDto: PrepareMintTxOptions,
+  ): Promise<CreateMintResponse> {
+    const links = extractLinks(prepareBuyDto.links);
+    const data: CreateMintWithMetadataDto = {
+      name: prepareBuyDto.name,
+      symbol: prepareBuyDto.symbol,
+      curveType: prepareBuyDto.curveType,
+      migrationDex: prepareBuyDto.migrationDex,
+      icon: prepareBuyDto.icon,
+      description: prepareBuyDto.description,
+      banner: prepareBuyDto.banner,
+      affiliate: prepareBuyDto.affiliate,
+      x: links.x,
+      discord: links.discord,
+      telegram: links.telegram,
+      website: links.website,
+    };
 
-  submitMint(
-    draftTokenId: string,
-    submitDto: MintTokenSubmitV1Request,
-  ): Promise<MintTokenSubmitV1Response> {
     return this.apiClient.authedRequest(
-      `/tokens/v1/${draftTokenId}/submit`,
+      `/mint/create/metadata/sdk`,
       this.token,
       {
         method: 'POST',
-        data: submitDto,
+        data,
       },
     );
+  }
+
+  async prepareMint(
+    pairId: string,
+    prepareBuyDto: MintTxPrepareDto,
+  ): Promise<MintTxPrepareResponse> {
+    return this.apiClient.authedRequest(
+      `/mint/tx/prepare/${pairId}/sdk`,
+      this.token,
+      {
+        method: 'POST',
+        data: prepareBuyDto,
+      },
+    );
+  }
+
+  submitMint(submitDto: MintTxSubmitDto): Promise<MintTxSubmitResponse> {
+    return this.apiClient.authedRequest(`/mint/tx/submit/sdk`, this.token, {
+      method: 'POST',
+      data: submitDto,
+    });
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "@wen-moon-ser/moonshot-sdk",
-  "version": "4.1.2",
+  "version": "4.2.0-alpha.1",
   "main": "dist/index.js",
   "types": "dist/types/index.d.ts",
   "scripts": {
@@ -32,12 +32,12 @@
     "typescript": "^5.5.2"
   },
   "dependencies": {
-    "@coral-xyz/anchor": "^0.29.0",
-    "@heliofi/launchpad-common": "1.1.2",
+    "@coral-xyz/anchor": "0.29.0",
+    "@heliofi/launchpad-common": "1.6.25",
     "@solana/spl-token": "0.3.9",
-    "@solana/web3.js": "^1.68.0",
+    "@solana/web3.js": "1.95.8",
     "@types/bn.js": "^5.1.5",
-    "axios": "^1.7.2",
+    "axios": "1.8.2",
     "bn.js": "^5.2.1"
   },
   "eslintConfig": {

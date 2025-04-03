@@ -7,9 +7,11 @@ export interface CurveAccount {
   decimals: number;
   collateralCurrency: ContractCurrency;
   curveType: ContractCurveType;
-  marketcapThreshold: bigint;
+  marketcapThreshold: bigint; // !NOTE For FLAT_CURVE MC threshold is also collateral collected
   marketcapCurrency: ContractCurrency;
   migrationFee: bigint;
   coefB: number;
   bump: number;
+  migrationTarget: number;
+  priceIncrease: number;
 }

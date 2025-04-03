@@ -2,10 +2,6 @@ import axios, { AxiosHeaders, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { NoContent } from './NoContent';
 import { ResponseError } from './ResponseError';
 
-type ErrorMessage = {
-  message: string;
-};
-
 export type FetchOptions = RequestInit & {
   clearContentType?: boolean;
 };
@@ -42,16 +38,7 @@ const validateStatus = async (response: AxiosResponse): Promise<void> => {
   if (response.status >= 200 && response.status < 300) {
     return;
   }
-  const errorResult: ErrorMessage = await response.data;
-  console.error(response.data);
-  try {
-    console.error(JSON.stringify(response.data));
-  } catch (e) {}
-  console.error(response.data.message);
-  throw new ResponseError(
-    response,
-    errorResult?.message || response.statusText,
-  );
+  throw new ResponseError(response, response.statusText);
 };
 
 export const request = async <T>(
