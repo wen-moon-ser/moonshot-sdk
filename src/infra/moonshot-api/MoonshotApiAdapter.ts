@@ -8,6 +8,8 @@ import {
   MintTxSubmitDto,
   MintTxSubmitResponse,
 } from '@heliofi/launchpad-common';
+import { PrepareMintTxOptions } from '../../domain/model/moonshot/PrepareMintTxOptions';
+import { extractLinks } from '../../solana/utils/extractSocialLinks';
 
 export class MoonshotApiAdapter {
   private apiClient: ApiClient;
@@ -19,19 +21,35 @@ export class MoonshotApiAdapter {
     const apiBasePath =
       env === Environment.MAINNET
         ? 'https://api.mintlp.io/v1'
-        : 'https://api.dev.mintlp.io/v1';
+        : 'http://localhost:8080/v1';
     this.apiClient = new ApiClient({ apiBasePath });
   }
 
   async createMint(
-    prepareBuyDto: CreateMintWithMetadataDto,
+    prepareBuyDto: PrepareMintTxOptions,
   ): Promise<CreateMintResponse> {
+    const links = extractLinks(prepareBuyDto.links);
+    const data: CreateMintWithMetadataDto = {
+      name: prepareBuyDto.name,
+      symbol: prepareBuyDto.symbol,
+      curveType: prepareBuyDto.curveType,
+      migrationDex: prepareBuyDto.migrationDex,
+      icon: prepareBuyDto.icon,
+      description: prepareBuyDto.description,
+      banner: prepareBuyDto.banner,
+      affiliate: prepareBuyDto.affiliate,
+      x: links.x,
+      discord: links.discord,
+      telegram: links.telegram,
+      website: links.website,
+    };
+
     return this.apiClient.authedRequest(
       `/mint/create/metadata/sdk`,
       this.token,
       {
         method: 'POST',
-        data: prepareBuyDto,
+        data,
       },
     );
   }
