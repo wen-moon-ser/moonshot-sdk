@@ -21,7 +21,7 @@ export class MoonshotApiAdapter {
     const apiBasePath =
       env === Environment.MAINNET
         ? 'https://api.mintlp.io/v1'
-        : 'http://localhost:8080/v1';
+        : 'https://api.dev.mintlp.io/v1';
     this.apiClient = new ApiClient({ apiBasePath });
   }
 
