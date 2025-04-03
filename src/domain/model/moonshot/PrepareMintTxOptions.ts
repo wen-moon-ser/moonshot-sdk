@@ -52,25 +52,25 @@ export interface PrepareMintTxOptions {
   tokenAmount?: string;
 
   /**
-   * Optional array of link to website
+   * Optional link to website
    * @optional
    */
   website?: string;
 
   /**
-   * Optional array of link to x
+   * Optional link to x
    * @optional
    */
   x?: string;
 
   /**
-   * Optional array of link to telegram
+   * Optional link to telegram
    * @optional
    */
   telegram?: string;
 
   /**
-   * Optional array of link to discord
+   * Optional link to discord
    * @optional
    */
   discord?: string;
