@@ -52,10 +52,28 @@ export interface PrepareMintTxOptions {
   tokenAmount?: string;
 
   /**
-   * Optional array of links associated with the token
+   * Optional array of link to website
    * @optional
    */
-  links?: { url: string; label: string }[];
+  website?: string;
+
+  /**
+   * Optional array of link to x
+   * @optional
+   */
+  x?: string;
+
+  /**
+   * Optional array of link to telegram
+   * @optional
+   */
+  telegram?: string;
+
+  /**
+   * Optional array of link to discord
+   * @optional
+   */
+  discord?: string;
 
   /**
    * Token banner encoded in base64 format

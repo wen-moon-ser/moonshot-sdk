@@ -36,7 +36,7 @@ describe('Moonshot', () => {
       migrationDex: MigrationDex.RAYDIUM,
       icon: mockImg,
       description: 'TEST_TOKEN',
-      links: [{ url: 'https://x.com', label: 'x handle' }],
+      x: 'https://x.com',
       banner: mockImg,
     });
 
@@ -54,7 +54,7 @@ describe('Moonshot', () => {
       migrationDex: MigrationDex.RAYDIUM,
       icon: mockImg,
       description: 'TEST_TOKEN',
-      links: [{ url: 'https://x.com', label: 'x handle' }],
+      x: 'https://x.com',
       banner: mockImg,
       tokenAmount: '42000000000',
       affiliate: {
@@ -96,7 +96,7 @@ describe('Moonshot', () => {
       migrationDex: MigrationDex.RAYDIUM,
       icon: mockImg,
       description: 'TEST_TOKEN',
-      links: [{ url: 'https://x.com', label: 'x handle' }],
+      x: 'https://x.com',
       banner: mockImg,
       tokenAmount: '42000000000',
       affiliate: {
