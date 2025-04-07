@@ -253,6 +253,6 @@ export const createMint = async (): Promise<void> => {
 };
 
 ```
-For full example code please refer to [moonshot-bot-examples](https://github.com/wen-moon-ser/moonshot-bot-examples) repository.
+For full example code please refer to [moonshot-bot-examples](https://github.com/gomoonit/moonshot-bot-examples) repository.
 > Please note the mint endpoint is subject to rate limit per IP address, current limit is **2 requests per 10 seconds**.
 
