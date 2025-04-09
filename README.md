@@ -1,7 +1,12 @@
 # ⚠️ Moonshot is now [Moonit](https://github.com/gomoonit/moonit-sdk) 
-# Use the Moonit SDK [npm link](https://www.npmjs.com/package/@moonit/sdk)
 
-# @wen-moon-ser/moonshot-sdk
+Moonshot is upgraded into Moonit, see the Moonit SDK [npm link](https://www.npmjs.com/package/@moonit/sdk) and [Github Repository](https://github.com/gomoonit/moonit-sdk)
+
+Follow this [simple migration guide](https://docs.moon.it/docs/editor#migration-from-wen-moon-ser-moonshot-sdk) in case you are currently using the old `@wen-moon-ser/moonshot-sdk` package.
+
+## ℹ️ The documentation below is deprecated and is only for referencing the old SDK. Please use the new [documentation](https://docs.moon.it/) and [SDK](https://www.npmjs.com/package/@moonit/sdk) to get the latest updates.
+
+## @wen-moon-ser/moonshot-sdk
 Moonshot SDK for Solana helps calculate moonshot token prices at any point in the bonding curve. The package also allows the users to generate buy and sell transactions, provide the slippage amount and fix it to a trading side. 
 
 By Following the example you can create your high-performance trading bot within minutes.
